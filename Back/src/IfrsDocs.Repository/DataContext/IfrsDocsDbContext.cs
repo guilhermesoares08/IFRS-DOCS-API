@@ -2,7 +2,7 @@
 using IfrsDocs.Repository.Mappings;
 using Microsoft.EntityFrameworkCore;
 
-namespace IfrsDocs.Repository.DataContext
+namespace IfrsDocs.Repository
 {
     public class IfrsDocsDbContext : DbContext
     {
