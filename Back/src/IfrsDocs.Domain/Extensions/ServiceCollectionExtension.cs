@@ -9,16 +9,7 @@ namespace IfrsDocs.Domain
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-
-            //services.AddScoped<Ibase, RestaurantService>();
-
-            //services.AddScoped<IDomainService, DomainService>();
-
-            //services.AddScoped<IRestaurantAddressService, RestaurantAddressService>();
-
-            //services.AddScoped<ISchedulingService, SchedulingService>();
-
-            //services.AddScoped<IRestaurantExtensionService, RestaurantExtensionService>();
+            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<,>));
 
             return services;
         }
