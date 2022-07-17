@@ -11,7 +11,10 @@ namespace IfrsDocs.Domain
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IDocumentOptionService, DocumentOptionService>();
             services.AddScoped<IFormService, FormService>();
-
+            services.AddScoped<IFormCanceledService, FormCanceledService>();
+            services.AddScoped<IFormDocumentOptionService, FormDocumentOptionService>();
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IUserService, UserService>();
             return services;
         }
     }

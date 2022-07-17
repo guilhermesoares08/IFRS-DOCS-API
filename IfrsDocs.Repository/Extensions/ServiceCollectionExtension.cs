@@ -19,6 +19,10 @@ namespace IfrsDocs.Repository
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IDocumentOptionRepository, DocumentOptionRepository>();
             services.AddScoped<IFormRepository, FormRepository>();
+            services.AddScoped<IFormCanceledRepository, FormCanceledRepository>();
+            services.AddScoped<IFormDocumentOptionRepository, FormDocumentOptionRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             return services;
         }
     }
