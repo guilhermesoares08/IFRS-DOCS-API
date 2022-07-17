@@ -1,9 +1,8 @@
 ﻿using IfrsDocs.Domain;
-using IfrsDocs.Repository;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace ifrsDocs.Repository
+namespace IfrsDocs.Repository
 {
     public class CourseRepository : BaseRepository<Course>, ICourseRepository
     {

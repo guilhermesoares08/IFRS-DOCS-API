@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using IfrsDocs.Domain;
 
-namespace IfrsDocs.Domain.Services
+namespace WebRestaurantes.Services
 {
-    internal class CourseService
+    public class CourseService : BaseService<Course, ICourseRepository>, ICourseService
     {
+        public CourseService(ICourseRepository CourseRepository) : base(CourseRepository)
+        {
+        }
     }
 }
