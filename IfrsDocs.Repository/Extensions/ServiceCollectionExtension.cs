@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using IfrsDocs.Domain;
-using ifrsDocs.Repository;
 
 namespace IfrsDocs.Repository
 {
@@ -18,6 +17,7 @@ namespace IfrsDocs.Repository
         {
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<IDocumentOptionRepository, DocumentOptionRepository>();
             return services;
         }
     }

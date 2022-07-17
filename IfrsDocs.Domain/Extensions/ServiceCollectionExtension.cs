@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using IfrsDocs.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace IfrsDocs.Domain
 {
@@ -9,7 +7,9 @@ namespace IfrsDocs.Domain
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<,>));
+            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<,>));            
+            services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IDocumentOptionService, DocumentOptionService>();
 
             return services;
         }
