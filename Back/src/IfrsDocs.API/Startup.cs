@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IfrsDocs.Domain;
 using IfrsDocs.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +29,9 @@ namespace IfrsDocs.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-             //services.AddDbContext<IfrsDocsDbContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DbConnectionString")));
+            services.AddIfrsDocsDbContext(Configuration.GetConnectionString("DbConnectionString"));
+            services.AddServices();
+            services.AddRepositories();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
