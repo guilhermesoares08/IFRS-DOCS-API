@@ -1,4 +1,5 @@
 ﻿using IfrsDocs.Domain.Entities;
+using IfrsDocs.Repository.Mappings;
 using Microsoft.EntityFrameworkCore;
 
 namespace IfrsDocs.Repository.DataContext
@@ -16,7 +17,15 @@ namespace IfrsDocs.Repository.DataContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new CourseMap());
+            modelBuilder.ApplyConfiguration(new DocumentOptionMap());
+            modelBuilder.ApplyConfiguration(new FormCanceledMap());
+            modelBuilder.ApplyConfiguration(new FormDocumentOptionMap());
+            modelBuilder.ApplyConfiguration(new FormMap());
+            modelBuilder.ApplyConfiguration(new RoleMap());
+            modelBuilder.ApplyConfiguration(new UserMap());
         }
     }
         
