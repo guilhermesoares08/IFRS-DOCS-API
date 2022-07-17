@@ -1,7 +1,7 @@
 ﻿
 using IfrsDocs.Domain;
 
-namespace WebRestaurantes.Services
+namespace IfrsDocs.Services
 {
     public class CourseService : BaseService<Course, ICourseRepository>, ICourseService
     {
