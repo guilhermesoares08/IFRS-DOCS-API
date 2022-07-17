@@ -10,6 +10,7 @@ namespace IfrsDocs.Domain
             services.AddScoped(typeof(IBaseService<>), typeof(BaseService<,>));            
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IDocumentOptionService, DocumentOptionService>();
+            services.AddScoped<IFormService, FormService>();
 
             return services;
         }

@@ -18,6 +18,7 @@ namespace IfrsDocs.Repository
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IDocumentOptionRepository, DocumentOptionRepository>();
+            services.AddScoped<IFormRepository, FormRepository>();
             return services;
         }
     }
