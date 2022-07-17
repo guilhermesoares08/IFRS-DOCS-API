@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IfrsDocs.Domain;
-using IfrsDocs.Repository;
 
 namespace IfrsDocs.Repository
 {

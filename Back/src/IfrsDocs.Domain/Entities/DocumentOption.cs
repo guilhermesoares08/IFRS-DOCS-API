@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IfrsDocs.Domain.Entities
+namespace IfrsDocs.Domain
 {
     public class DocumentOption
     {
