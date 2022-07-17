@@ -1,4 +1,4 @@
-﻿using IfrsDocs.Domain.Entities;
+﻿using IfrsDocs.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
