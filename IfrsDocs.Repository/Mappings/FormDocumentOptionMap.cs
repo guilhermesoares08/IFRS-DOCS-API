@@ -13,7 +13,7 @@ namespace IfrsDocs.Repository.Mappings
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            builder.ToTable("FormDocumentOption");
+            builder.ToTable("FormDocumentOption").HasKey(ur => new { ur.FormId, ur.DocumentOptionId }); ;
             builder.Property(p => p.FormId).HasColumnName("FormId");
             builder.Property(p => p.DocumentOptionId).HasColumnName("DocumentOptionId");
         }

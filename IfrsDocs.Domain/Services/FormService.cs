@@ -1,5 +1,7 @@
 ﻿
 using IfrsDocs.Domain;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace IfrsDocs.Services
 {
@@ -7,6 +9,11 @@ namespace IfrsDocs.Services
     {
         public FormService(IFormRepository FormRepository) : base(FormRepository)
         {
+        }
+
+        public Task<List<Form>> GetAllFormsAsync()
+        {
+            return _repository.GetAllFormsAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IfrsDocs.Domain
 {
@@ -17,7 +18,9 @@ namespace IfrsDocs.Domain
         public DateTime? UpdateDate { get; set; }
         public string CreateBy { get; set; }
         public string UpdateBy { get; set; }
-        public Course Course { get; set; }
+        [NotMapped]
+        public Course CourseObj { get; set; }
+        [NotMapped]
         public User User { get; set; }
     }
 }

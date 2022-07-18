@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using IfrsDocs.Domain;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace IfrsDocs.API.Controllers
 {
@@ -7,5 +12,31 @@ namespace IfrsDocs.API.Controllers
     [ApiController]
     public class FormController : ControllerBase
     {
+        private readonly IMapper _mapper;
+        private readonly IFormService _formService;
+
+        public FormController(IMapper mapper, IFormService formService)
+        {
+            _mapper = mapper;
+            _formService = formService;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var results = await _formService.GetAllFormsAsync();
+
+                var resultMap = _mapper.Map<IEnumerable<FormDto>>(results);
+
+                return Ok(resultMap);
+            }
+            catch (System.Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou {ex.Message}");
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace IfrsDocs.Repository.Mappings
 
             builder.ToTable("Course");
             builder.Property(p => p.Id).HasColumnName("Id").UseIdentityColumn().ValueGeneratedOnAdd().IsRequired();
-            builder.Property(p => p.Description).HasColumnName("Description");
+            builder.Property(p => p.Description).HasColumnName("Description").HasColumnType("VARCHAR");
             builder.Property(p => p.CreateDate).HasColumnName("CreateDate");
             builder.Property(p => p.UpdateDate).HasColumnName("UpdateDate");
         }

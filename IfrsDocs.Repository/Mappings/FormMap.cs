@@ -19,7 +19,7 @@ namespace IfrsDocs.Repository.Mappings
             builder.Property(p => p.Email).HasColumnName("Email");
             builder.Property(p => p.Name).HasColumnName("Name");
             builder.Property(p => p.CPF).HasColumnName("CPF");
-            builder.Property(p => p.CourseString).HasColumnName("CourseString");
+            builder.Property(p => p.CourseString).HasColumnName("Course").HasColumnType("VARCHAR");
             builder.Property(p => p.ReceiveDocumentTypeId).HasColumnName("ReceiveDocumentTypeId");
             builder.Property(p => p.DocumentTypeId).HasColumnName("DocumentTypeId");
             builder.Property(p => p.Status).HasColumnName("Status");
@@ -27,6 +27,8 @@ namespace IfrsDocs.Repository.Mappings
             builder.Property(p => p.UpdateDate).HasColumnName("UpdateDate");
             builder.Property(p => p.CreateBy).HasColumnName("CreateBy");
             builder.Property(p => p.UpdateBy).HasColumnName("UpdateBy");
+
+            //builder.HasOne<Course>(p => p.CourseObj).WithOne().HasPrincipalKey<Form>(f => f.CourseString);
         }
     }
 }
