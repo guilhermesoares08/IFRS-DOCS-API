@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IfrsDocs.Domain
@@ -41,5 +42,10 @@ namespace IfrsDocs.Domain
         {
             _repository.Update<TEntity>(entity);
         }
+
+        //public TEntity GetById(IKey id)
+        //{
+        //    _repository.GetById<TEntity>()
+        //}
     }
 }

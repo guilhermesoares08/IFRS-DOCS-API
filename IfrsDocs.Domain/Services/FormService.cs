@@ -1,19 +1,49 @@
 ﻿
 using IfrsDocs.Domain;
+using IfrsDocs.Domain.Entities.Enums;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace IfrsDocs.Services
 {
     public class FormService : BaseService<Form, IFormRepository>, IFormService
     {
-        public FormService(IFormRepository FormRepository) : base(FormRepository)
+        IUserRepository _userRepository;
+        public FormService(IFormRepository formRepository, IUserRepository userRepository) : base(formRepository)
         {
+            _userRepository = userRepository;
         }
 
-        public Task<List<Form>> GetAllFormsAsync()
+        public List<Form> GetAllForms()
         {
-            return _repository.GetAllFormsAsync();
+            return _repository.GetAllForms();
         }
+
+        public List<Form> GetFormsByUser(int userId)
+        {
+            return _repository.GetFormsByUser(userId);
+        }
+
+        public List<Form> GetPendingFormsByUser(int userId)
+        {
+            return _repository.GetPendingFormsByUser(userId);
+        }
+
+        public List<Form> GetPendingForms(int userId)
+        {
+            var user = _userRepository.GetUserById(userId);
+
+            if(user == null || user.Role == null)
+            {
+                return null;
+            }
+
+            if(user.Role.Id == (int) RoleType.Admin)
+            {
+                return _repository.GetPendingForms();
+            }
+
+            return GetPendingFormsByUser(userId);
+        }
+
     }
 }

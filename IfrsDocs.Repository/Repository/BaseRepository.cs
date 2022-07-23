@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IfrsDocs.Domain;
+using System;
+using Microsoft.EntityFrameworkCore.Metadata;
+using System.Linq.Expressions;
+using System.Linq;
 
 namespace IfrsDocs.Repository
 {
@@ -44,5 +48,22 @@ namespace IfrsDocs.Repository
         {
             return await _ifrsDocsContext.Set<TEntity>().ToListAsync();
         }
+
+        //public TEntity GetById<TEntity>(params Expression<Func<TEntity, bool>>[] keys) where TEntity : class
+        //{
+        //    if (keys == null)
+        //        return default(TEntity);
+
+        //    var table = _ifrsDocsContext.Set<TEntity>();
+        //    IQueryable<TEntity> query = null;
+        //    foreach (var item in keys)
+        //    {
+        //        if (query == null)
+        //            query = table.Where(item);
+        //        else
+        //            query = query.Where(item);
+        //    }
+        //    return query.FirstOrDefault<TEntity>();
+        //}
     }
 }

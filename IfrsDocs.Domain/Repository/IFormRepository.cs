@@ -5,6 +5,14 @@ namespace IfrsDocs.Domain
 {
     public interface IFormRepository : IBaseRepository<Form>
     {
-        public Task<List<Form>> GetAllFormsAsync();
+        List<Form> GetAllForms();
+
+        List<Form> GetFormsByUser(int userId);
+
+        List<Form> GetPendingForms();
+
+        List<Form> GetPendingFormsByUser(int userId);
+
+        Form GetFormById(int id);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using IfrsDocs.Domain;
+using IfrsDocs.Repository.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,56 @@ namespace IfrsDocs.Repository
             _ifrsDocsContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public async Task<List<Form>> GetAllFormsAsync()
+        public List<Form> GetAllForms()
         {
             IQueryable<Form> query = _ifrsDocsContext.Form;
-            query = query.Include(d => d.Course);
-            query = query.AsNoTracking().OrderByDescending(p => p.CreateDate);
-            return await query.ToListAsync();
+            
+            query = query
+                .ApplyFormIncludes()
+                .AsNoTracking()
+                .OrderByDescending(p => p.CreateDate);
+            return query.ToList();
+        }
+
+        public List<Form> GetFormsByUser(int userId)
+        {
+            IQueryable<Form> query = _ifrsDocsContext.Form;
+            query = query
+                .ApplyFormIncludes()
+                .AsNoTracking()
+                .Where(f => f.UserId == userId);
+
+            return query.ToList();
+        }
+
+        public List<Form> GetPendingForms()
+        {
+            IQueryable<Form> query = _ifrsDocsContext.Form;
+            query = query.ApplyFormIncludes()
+                .AsNoTracking()
+                .Where(f => !f.Status.HasValue || f.Status == Domain.Entities.Enums.FormStatus.Pendente);
+
+            return query.ToList();
+        }
+
+        public List<Form> GetPendingFormsByUser(int userId)
+        {
+            IQueryable<Form> query = _ifrsDocsContext.Form;
+            query = query.ApplyFormIncludes()                
+                .AsNoTracking()
+                .Where(f => f.Status == Domain.Entities.Enums.FormStatus.Pendente && f.UserId.Equals(userId));
+
+            return query.ToList();
+        }
+
+        public Form GetFormById(int id)
+        {
+            IQueryable<Form> query = _ifrsDocsContext.Form;
+            query = query.ApplyFormIncludes()
+                .AsNoTracking()
+                .Where(f => f.Id.Equals(id));
+
+            return query.FirstOrDefault();
         }
     }
 }

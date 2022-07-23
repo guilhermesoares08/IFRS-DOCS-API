@@ -5,6 +5,10 @@ namespace IfrsDocs.Domain
 {
     public interface IFormService : IBaseService<Form>
     {
-        public Task<List<Form>> GetAllFormsAsync();
+        public List<Form> GetAllForms();
+
+        public List<Form> GetFormsByUser(int userId);
+
+        public List<Form> GetPendingForms(int userId);
     }
 }

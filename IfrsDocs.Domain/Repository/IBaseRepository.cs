@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace IfrsDocs.Domain
@@ -16,5 +18,7 @@ namespace IfrsDocs.Domain
         Task<bool> SaveChangesAsync();
 
         Task<List<TEntity>> GetAllAsync();
+
+        //TEntity GetById<TEntity>(params Expression<Func<TEntity, bool>>[] keys) where TEntity : class;
     }
 }

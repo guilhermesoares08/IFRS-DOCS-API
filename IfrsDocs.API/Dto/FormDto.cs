@@ -1,4 +1,4 @@
-﻿using IfrsDocs.Domain;
+﻿using IfrsDocs.Domain.Entities.Enums;
 using System;
 
 namespace IfrsDocs.API
@@ -13,7 +13,7 @@ namespace IfrsDocs.API
         public int? CourseId { get; set; }
         public int? ReceiveDocumentTypeId { get; set; }
         public int? DocumentTypeId { get; set; }
-        public string Status { get; set; }
+        public FormStatus Status { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
         public string CreateBy { get; set; }
