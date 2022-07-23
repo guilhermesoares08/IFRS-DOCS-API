@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace IfrsDocs.Repository.Mappings
+namespace IfrsDocs.Repository.Configuration
 {
-    public class DocumentOptionMap : IEntityTypeConfiguration<DocumentOption>
+    public class DocumentOptionConfiguration : IEntityTypeConfiguration<DocumentOption>
     {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<DocumentOption> builder)
         {

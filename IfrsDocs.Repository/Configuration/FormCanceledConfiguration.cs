@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace IfrsDocs.Repository.Mappings
+namespace IfrsDocs.Repository.Configuration
 {
-    public class FormCanceledMap : IEntityTypeConfiguration<FormCanceled>
+    public class FormCanceledConfiguration : IEntityTypeConfiguration<FormCanceled>
     {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<FormCanceled> builder)
         {

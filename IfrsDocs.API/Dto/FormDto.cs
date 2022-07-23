@@ -10,7 +10,7 @@ namespace IfrsDocs.API
         public string Email { get; set; }
         public string Name { get; set; }
         public string CPF { get; set; }
-        public string CourseString { get; set; }
+        public int? CourseId { get; set; }
         public int? ReceiveDocumentTypeId { get; set; }
         public int? DocumentTypeId { get; set; }
         public string Status { get; set; }

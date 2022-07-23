@@ -10,7 +10,7 @@ namespace IfrsDocs.Domain
         public string Email { get; set; }
         public string Name { get; set; }
         public string CPF { get; set; }
-        public string CourseString { get; set; }
+        public int? CourseId { get; set; }
         public int? ReceiveDocumentTypeId { get; set; }
         public int? DocumentTypeId { get; set; }
         public string Status { get; set; }
@@ -18,9 +18,7 @@ namespace IfrsDocs.Domain
         public DateTime? UpdateDate { get; set; }
         public string CreateBy { get; set; }
         public string UpdateBy { get; set; }
-        [NotMapped]
-        public Course CourseObj { get; set; }
-        [NotMapped]
+        public Course Course { get; set; }        
         public User User { get; set; }
     }
 }

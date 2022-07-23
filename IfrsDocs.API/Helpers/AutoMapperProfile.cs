@@ -8,6 +8,8 @@ namespace IfrsDocs.API.Helpers
         public AutoMapperProfile()
         {
             CreateMap<Form, FormDto>().ReverseMap();
+            CreateMap<Course, CourseDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
         }
     }
 }

@@ -1,14 +1,10 @@
 ﻿using IfrsDocs.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace IfrsDocs.Repository.Mappings
+namespace IfrsDocs.Repository.Configuration
 {
-    public class CourseMap : IEntityTypeConfiguration<Course>
+    public class CourseConfiguration : IEntityTypeConfiguration<Course>
     {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Course> builder)
         {

@@ -18,7 +18,7 @@ namespace IfrsDocs.Repository
         public async Task<List<Form>> GetAllFormsAsync()
         {
             IQueryable<Form> query = _ifrsDocsContext.Form;
-           // query = query.Include(d => d.CourseObj);
+            query = query.Include(d => d.Course);
             query = query.AsNoTracking().OrderByDescending(p => p.CreateDate);
             return await query.ToListAsync();
         }

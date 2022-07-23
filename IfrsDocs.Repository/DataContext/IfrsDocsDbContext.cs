@@ -1,6 +1,7 @@
 ﻿using IfrsDocs.Domain;
-using IfrsDocs.Repository.Mappings;
+using IfrsDocs.Repository.Configuration;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace IfrsDocs.Repository
 {
@@ -18,12 +19,12 @@ namespace IfrsDocs.Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.ApplyConfiguration(new CourseMap());
-            modelBuilder.ApplyConfiguration(new DocumentOptionMap());
-            modelBuilder.ApplyConfiguration(new FormCanceledMap());
-            modelBuilder.ApplyConfiguration(new FormDocumentOptionMap());
-            modelBuilder.ApplyConfiguration(new FormMap());
+            
+            modelBuilder.ApplyConfiguration(new CourseConfiguration());
+            modelBuilder.ApplyConfiguration(new DocumentOptionConfiguration());
+            modelBuilder.ApplyConfiguration(new FormCanceledConfiguration());
+            modelBuilder.ApplyConfiguration(new FormDocumentOptionConfiguration());
+            modelBuilder.ApplyConfiguration(new FormConfiguration());
         }
     }
         

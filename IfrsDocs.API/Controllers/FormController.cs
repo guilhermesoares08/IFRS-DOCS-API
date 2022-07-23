@@ -27,10 +27,8 @@ namespace IfrsDocs.API.Controllers
         {
             try
             {
-                var results = await _formService.GetAllFormsAsync();
-
-                var resultMap = _mapper.Map<IEnumerable<FormDto>>(results);
-
+                List<Form> results = await _formService.GetAllFormsAsync();
+                List<FormDto> resultMap = _mapper.Map<List<FormDto>>(results);
                 return Ok(resultMap);
             }
             catch (System.Exception ex)

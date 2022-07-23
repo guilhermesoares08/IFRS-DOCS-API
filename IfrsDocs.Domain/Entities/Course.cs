@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IfrsDocs.Domain
 {
-    public class Course
+    public partial class Course
     {
         public int Id { get; set; }
         public string Description { get; set; }
