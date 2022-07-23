@@ -108,7 +108,7 @@ namespace IfrsDocs.API.Controllers
 
                 if (await _formService.SaveChangesAsync())
                 {
-                    return Created($"/api/restaurant/{model.Id}", _mapper.Map<Form>(form));
+                    return Created($"/api/form/{model.Id}", _mapper.Map<Form>(form));
                 }
             }
             catch (System.Exception ex)
