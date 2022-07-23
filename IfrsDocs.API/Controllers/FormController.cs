@@ -3,6 +3,7 @@ using IfrsDocs.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -99,27 +100,15 @@ namespace IfrsDocs.API.Controllers
         {
             try
             {
-                var rest = await _formService.GetForMBy(id);
-                if (rest == null) { return NotFound(); };
+                var form = _formService.GetFormById(id);
+                if (form == null) { return NotFound(); };
+                model.UpdateDate = DateTime.Now;                
+                _mapper.Map(model, form);
+                _formService.Update(form);
 
-                var idsAddressess = new List<int>();
-                if (model.Address != null && model.Address.Count > 0)
+                if (await _formService.SaveChangesAsync())
                 {
-                    model.Address.ForEach(item => idsAddressess.Add(item.Id));
-                    var addressess = rest.Address.Where(
-                        addr => !idsAddressess.Contains(addr.Id)
-                    ).ToArray();
-
-                    if (addressess.Length > 0) _restaurantAddressService.DeleteRange(addressess);
-                }
-                model.UpdateDate = DateTime.Now.ToString();
-                model.CreateDate = rest.CreateDate.ToString();
-                _mapper.Map(model, rest);
-                _restaurantService.Update(rest);
-
-                if (await _restaurantService.SaveChangesAsync())
-                {
-                    return Created($"/api/restaurant/{model.Id}", _mapper.Map<RestaurantDto>(rest));
+                    return Created($"/api/restaurant/{model.Id}", _mapper.Map<Form>(form));
                 }
             }
             catch (System.Exception ex)

@@ -10,5 +10,7 @@ namespace IfrsDocs.Domain
         public List<Form> GetFormsByUser(int userId);
 
         public List<Form> GetPendingForms(int userId);
+
+        public Form GetFormById(int id);
     }
 }

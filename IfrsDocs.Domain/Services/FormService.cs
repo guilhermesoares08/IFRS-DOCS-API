@@ -45,5 +45,10 @@ namespace IfrsDocs.Services
             return GetPendingFormsByUser(userId);
         }
 
+        public Form GetFormById(int id)
+        {
+            return _repository.GetFormById(id);
+        }
+
     }
 }
