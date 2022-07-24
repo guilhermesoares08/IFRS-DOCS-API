@@ -13,5 +13,20 @@ namespace IfrsDocs.Domain
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
         public Role Role { get; set; }
+
+        public User Clone()
+        {
+            User obj = new User();
+            obj.Id = this.Id;
+            obj.Description = this.Description;
+            obj.Email = this.Email;
+            obj.Password = this.Password;
+            obj.CPF = this.CPF;
+            obj.CreateDate = this.CreateDate;
+            obj.UpdateDate = this.UpdateDate;
+            obj.RoleId = this.RoleId;
+            obj.Role = this.Role.Clone();
+            return obj;
+        }
     }
 }

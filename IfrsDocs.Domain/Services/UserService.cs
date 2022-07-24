@@ -14,18 +14,14 @@ namespace IfrsDocs.Services
             return this._repository.GetUserById(id);
         }
 
-        private static string GenerateMd5(string input)
+        public User GetUserByLogin(string login)
         {
-            MD5 md5Hash = MD5.Create();
-            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-            StringBuilder sBuilder = new StringBuilder();
-            //format tostring
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
+            return this._repository.GetUserByLogin(login);
+        }
 
-            return sBuilder.ToString();
+        public User ValidateUser(string userName, string password)
+        {
+            return this._repository.ValidateUser(userName, password);
         }
     }
 }

@@ -31,6 +31,10 @@ namespace IfrsDocs.API.Controllers
             {
                 List<Form> results = _formService.GetAllForms();
                 List<FormDto> resultMap = _mapper.Map<List<FormDto>>(results);
+                if(resultMap.Count == 0)
+                {
+                    return NoContent();
+                }
                 return Ok(resultMap);
             }
             catch (System.Exception ex)
@@ -47,6 +51,11 @@ namespace IfrsDocs.API.Controllers
             {
                 List<Form> results = _formService.GetFormsByUser(userId);
                 List<FormDto> resultMap = _mapper.Map<List<FormDto>>(results);
+
+                if (resultMap.Count == 0)
+                {
+                    return NoContent();
+                }
                 return Ok(resultMap);
             }
             catch (System.Exception ex)
