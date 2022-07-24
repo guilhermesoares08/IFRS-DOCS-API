@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IfrsDocs.API.Dto;
 using IfrsDocs.Domain;
 
 namespace IfrsDocs.API.Helpers
@@ -10,6 +11,7 @@ namespace IfrsDocs.API.Helpers
             CreateMap<Form, FormDto>().ReverseMap();
             CreateMap<Course, CourseDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<Form, RequestNewFormDto>().ReverseMap();
         }
     }
 }

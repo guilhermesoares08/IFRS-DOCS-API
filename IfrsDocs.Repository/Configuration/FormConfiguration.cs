@@ -1,5 +1,7 @@
 ﻿using IfrsDocs.Domain;
+using IfrsDocs.Domain.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 
 namespace IfrsDocs.Repository.Configuration
@@ -22,13 +24,17 @@ namespace IfrsDocs.Repository.Configuration
             builder.Property(p => p.CourseId).HasColumnName("CourseId").HasColumnType("INT");
             builder.Property(p => p.ReceiveDocumentTypeId).HasColumnName("ReceiveDocumentTypeId");
             builder.Property(p => p.DocumentTypeId).HasColumnName("DocumentTypeId");
-            builder.Property(p => p.Status).HasColumnName("Status");
+            builder.Property(p => p.Status).HasColumnName("Status")
+                .HasConversion(
+                v => v.ToString(),
+                v => (FormStatus)Enum.Parse(typeof(FormStatus), v));
+            //.HasConversion(new EnumToStringConverter<FormStatus>());
             builder.Property(p => p.CreateDate).HasColumnName("CreateDate");
             builder.Property(p => p.UpdateDate).HasColumnName("UpdateDate");
             builder.Property(p => p.CreateBy).HasColumnName("CreateBy");
             builder.Property(p => p.UpdateBy).HasColumnName("UpdateBy");
 
-            builder.HasOne(f => f.Course).WithOne().HasForeignKey<Course>(c => c.Id);
+            //builder.HasOne(f => f.Course).WithOne().HasForeignKey<Course>(c => c.Id);
         }
     }
 }

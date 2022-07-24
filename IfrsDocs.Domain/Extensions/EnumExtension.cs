@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IfrsDocs.Domain.Entities.Enums;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;

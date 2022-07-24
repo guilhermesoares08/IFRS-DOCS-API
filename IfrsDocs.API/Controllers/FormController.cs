@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IfrsDocs.API.Dto;
 using IfrsDocs.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -72,7 +73,7 @@ namespace IfrsDocs.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Post(FormDto model)
+        public async Task<IActionResult> Post(RequestNewFormDto model)
         {
             try
             {
@@ -81,10 +82,10 @@ namespace IfrsDocs.API.Controllers
                 _formService.Add(formResult);
                 if (await _formService.SaveChangesAsync())
                 {
-                    return Created($"/api/form/{model.Id}", _mapper.Map<FormDto>(model));
+                    return Created($"/api/form/{model.Id}", _mapper.Map<RequestNewFormDto>(model));
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 string innerEx = ex.InnerException.Message;
                 string exMessage = ex.Message;
@@ -111,7 +112,7 @@ namespace IfrsDocs.API.Controllers
                     return Created($"/api/form/{model.Id}", _mapper.Map<Form>(form));
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou{ex.Message}");
             }

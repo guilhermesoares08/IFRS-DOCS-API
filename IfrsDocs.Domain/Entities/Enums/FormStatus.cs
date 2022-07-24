@@ -5,14 +5,14 @@ namespace IfrsDocs.Domain.Entities.Enums
     public enum FormStatus
     {
         [Description("Pendente")]
-        Pendente = 1,
+        Pendente,
         [Description("Em Andamento")]
-        EmAndamento = 2,
+        EmAndamento,
         [Description("Atendida")]
-        Atendida = 3,
+        Atendida,
         [Description("Aguardando Retirada")]
-        AguardandoRetirada = 4,
+        AguardandoRetirada,
         [Description("Cancelada")]
-        Cancelada = 5
+        Cancelada,
     }
 }

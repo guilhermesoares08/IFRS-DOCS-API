@@ -3,11 +3,12 @@ using System;
 
 namespace IfrsDocs.API.Dto
 {
-    public class FormDto
+    public class RequestNewFormDto
     {
-        public FormDto()
+        public RequestNewFormDto()
         {
             Status = FormStatus.Pendente;
+            CreateDate = DateTime.Now;
         }
         public int Id { get; set; }
         public int? UserId { get; set; }
@@ -17,12 +18,8 @@ namespace IfrsDocs.API.Dto
         public int? CourseId { get; set; }
         public int? ReceiveDocumentTypeId { get; set; }
         public int? DocumentTypeId { get; set; }
-        public FormStatus? Status { get; set; }
+        public FormStatus Status { get; set; }
         public DateTime CreateDate { get; set; }
-        public DateTime? UpdateDate { get; set; }
         public string CreateBy { get; set; }
-        public string UpdateBy { get; set; }
-        public CourseDto Course { get; set; }
-        public UserDto User { get; set; }
     }
 }
