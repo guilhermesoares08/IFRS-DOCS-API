@@ -1,5 +1,6 @@
 ﻿using IfrsDocs.Domain.Entities.Enums;
 using System;
+using IfrsDocs.Domain.Extensions;
 
 namespace IfrsDocs.API.Dto
 {
@@ -7,7 +8,7 @@ namespace IfrsDocs.API.Dto
     {
         public FormDto()
         {
-            Status = FormStatus.Pendente;
+            Status = FormStatus.Pendente.GetDescription();
         }
         public int Id { get; set; }
         public int? UserId { get; set; }
@@ -15,9 +16,9 @@ namespace IfrsDocs.API.Dto
         public string Name { get; set; }
         public string CPF { get; set; }
         public int? CourseId { get; set; }
-        public int? ReceiveDocumentTypeId { get; set; }
+        public string ReceiveDocumentType { get; set; }
         public int? DocumentTypeId { get; set; }
-        public FormStatus? Status { get; set; }
+        public string Status { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
         public string CreateBy { get; set; }

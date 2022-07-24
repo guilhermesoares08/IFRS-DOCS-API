@@ -1,6 +1,7 @@
 ﻿using IfrsDocs.Domain;
 using IfrsDocs.Domain.Entities.Enums;
 using IfrsDocs.Repository.Configuration;
+using IfrsDocs.Repository.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
@@ -21,24 +22,8 @@ namespace IfrsDocs.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            //foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-            //{
-            //    foreach (var property in entityType.GetProperties())
-            //    {
-            //        if (property.ClrType.BaseType == typeof(Enum))
-            //        {
-            //            var type = typeof(EnumToNumberConverter<FormStatus, >).MakeGenericType(property.ClrType);
-            //            var converter = Activator.CreateInstance(type, new ConverterMappingHints()) as ValueConverter;
-
-            //            property.SetValueConverter(converter);
-            //        }
-            //    }
-            //}
-
-
             base.OnModelCreating(modelBuilder);
-
+            modelBuilder.SetEnumStringConverter();
             modelBuilder.ApplyConfiguration(new CourseConfiguration());
             modelBuilder.ApplyConfiguration(new DocumentOptionConfiguration());
             modelBuilder.ApplyConfiguration(new FormCanceledConfiguration());

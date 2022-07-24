@@ -8,7 +8,7 @@ namespace IfrsDocs.API.Dto
         public RequestNewFormDto()
         {
             Status = FormStatus.Pendente;
-            CreateDate = DateTime.Now;
+            ReceiveDocumentType = ReceiveDocumentType.ByEmail;
         }
         public int Id { get; set; }
         public int? UserId { get; set; }
@@ -16,10 +16,9 @@ namespace IfrsDocs.API.Dto
         public string Name { get; set; }
         public string CPF { get; set; }
         public int? CourseId { get; set; }
-        public int? ReceiveDocumentTypeId { get; set; }
+        public ReceiveDocumentType ReceiveDocumentType { get; set; }
         public int? DocumentTypeId { get; set; }
         public FormStatus Status { get; set; }
-        public DateTime CreateDate { get; set; }
         public string CreateBy { get; set; }
     }
 }

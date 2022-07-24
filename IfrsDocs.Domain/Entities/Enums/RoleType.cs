@@ -10,8 +10,8 @@ namespace IfrsDocs.Domain.Entities.Enums
     public enum RoleType
     {
         [Description("Admin")]
-        Admin = 1,
+        Admin,
         [Description("User")]
-        User = 2
+        User
     }
 }
