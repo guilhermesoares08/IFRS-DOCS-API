@@ -106,7 +106,7 @@ namespace IfrsDocs.API.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, FormDto model)
+        public async Task<IActionResult> Put(int id, RequestNewFormDto model)
         {
             try
             {

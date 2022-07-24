@@ -1,4 +1,5 @@
 ﻿using IfrsDocs.Domain.Entities.Enums;
+using IfrsDocs.Domain.Extensions;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,6 +10,8 @@ namespace IfrsDocs.Domain
         public Form()
         {
             CreateDate = DateTime.Now;
+            DocumentType = DocumentType.Historico;
+            Status = FormStatus.Pendente;
         }
         public int Id { get; set; }
         public int? UserId { get; set; }
@@ -17,7 +20,7 @@ namespace IfrsDocs.Domain
         public string CPF { get; set; }
         public int? CourseId { get; set; }
         public ReceiveDocumentType ReceiveDocumentType { get; set; }
-        public int? DocumentTypeId { get; set; }
+        public DocumentType DocumentType { get; set; }
         public FormStatus? Status { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }

@@ -17,6 +17,9 @@ namespace IfrsDocs.API.Helpers
                 .ForMember(
                     dest => dest.ReceiveDocumentType,
                     opts => opts.MapFrom(src => src.ReceiveDocumentType.GetDescription()))
+                .ForMember(
+                    dest => dest.DocumentType,
+                    opts => opts.MapFrom(src => src.DocumentType.GetDescription()))
                 .ReverseMap();
 
             CreateMap<Course, CourseDto>().ReverseMap();

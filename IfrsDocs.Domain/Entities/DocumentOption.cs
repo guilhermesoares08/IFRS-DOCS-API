@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IfrsDocs.Domain.Entities.Enums;
+using System;
 
 namespace IfrsDocs.Domain
 {
@@ -6,9 +7,9 @@ namespace IfrsDocs.Domain
     {
         public int Id { get; set; }
 
-        public int DocumentTypeId { get; set; }
+        public DocumentType DocumentTypeId { get; set; }
 
-        public string FieldType { get; set; }
+        public FieldType FieldType { get; set; }
 
         public string Description { get; set; }
 

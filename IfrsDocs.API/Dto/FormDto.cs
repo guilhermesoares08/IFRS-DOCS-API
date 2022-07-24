@@ -9,6 +9,7 @@ namespace IfrsDocs.API.Dto
         public FormDto()
         {
             Status = FormStatus.Pendente.GetDescription();
+            DocumentType = Domain.Entities.Enums.DocumentType.Historico.GetDescription();
         }
         public int Id { get; set; }
         public int? UserId { get; set; }
@@ -17,7 +18,7 @@ namespace IfrsDocs.API.Dto
         public string CPF { get; set; }
         public int? CourseId { get; set; }
         public string ReceiveDocumentType { get; set; }
-        public int? DocumentTypeId { get; set; }
+        public string DocumentType { get; set; }
         public string Status { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
