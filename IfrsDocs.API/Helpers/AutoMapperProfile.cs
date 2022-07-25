@@ -22,12 +22,22 @@ namespace IfrsDocs.API.Helpers
                     opts => opts.MapFrom(src => src.DocumentType.GetDescription()))
                 .ReverseMap();
 
+            CreateMap<Form, FormByUserDto>()
+                .ForMember(
+                    dest => dest.OptionsString,
+                    opts => opts.MapFrom(src => FormatterHelper.FormatDocumentOptionInline(src.FormDocumentOptions)))
+                    .ForMember(
+                    dest => dest.Form,
+                    opts => opts.MapFrom(src => src));
+
             CreateMap<Course, CourseDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Form, RequestNewFormDto>().ReverseMap();
             CreateMap<User, UserLoginDto>()
                 .ForMember(dest => dest.Login, opt => opt.MapFrom(src => src.Description))
                 .ReverseMap();
+
+            CreateMap<DocumentOption, DocumentOptionDto>().ReverseMap();
         }
     }
 

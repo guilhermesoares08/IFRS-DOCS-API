@@ -16,6 +16,14 @@ namespace IfrsDocs.Repository.Configuration
             builder.ToTable("FormDocumentOption").HasKey(ur => new { ur.FormId, ur.DocumentOptionId }); ;
             builder.Property(p => p.FormId).HasColumnName("FormId");
             builder.Property(p => p.DocumentOptionId).HasColumnName("DocumentOptionId");
+
+            builder.HasOne(bc => bc.Form)
+                   .WithMany(b => b.FormDocumentOptions)
+                   .HasForeignKey(bc => bc.FormId);
+
+            builder.HasOne(bc => bc.DocumentOption)
+                    .WithMany(b => b.FormDocumentOptions)
+                    .HasForeignKey(bc => bc.DocumentOptionId);
         }
     }
 }

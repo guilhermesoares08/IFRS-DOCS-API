@@ -71,7 +71,7 @@ namespace IfrsDocs.API.Controllers
             try
             {
                 List<Form> results = _formService.GetPendingForms(userId);
-                List<FormDto> resultMap = _mapper.Map<List<FormDto>>(results);
+                List<FormByUserDto> resultMap = _mapper.Map<List<FormByUserDto>>(results);
                 return Ok(resultMap);
             }
             catch (System.Exception ex)

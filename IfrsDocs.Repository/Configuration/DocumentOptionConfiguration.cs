@@ -15,7 +15,7 @@ namespace IfrsDocs.Repository.Configuration
 
             builder.ToTable("DocumentOption");
             builder.Property(p => p.Id).HasColumnName("Id").UseIdentityColumn().ValueGeneratedOnAdd().IsRequired();
-            builder.Property(p => p.DocumentTypeId).HasColumnName("DocumentTypeId");
+            builder.Property(p => p.DocumentType).HasColumnName("DocumentType");
             builder.Property(p => p.FieldType).HasColumnName("FieldType");
             builder.Property(p => p.Description).HasColumnName("Description");
             builder.Property(p => p.CreateDate).HasColumnName("CreateDate");

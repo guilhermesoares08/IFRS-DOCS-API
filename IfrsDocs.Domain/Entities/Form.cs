@@ -1,6 +1,7 @@
 ﻿using IfrsDocs.Domain.Entities.Enums;
 using IfrsDocs.Domain.Extensions;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IfrsDocs.Domain
@@ -28,5 +29,6 @@ namespace IfrsDocs.Domain
         public string UpdateBy { get; set; }
         public Course Course { get; set; }        
         public User User { get; set; }
+        public List<FormDocumentOption> FormDocumentOptions { get; set; }
     }
 }
