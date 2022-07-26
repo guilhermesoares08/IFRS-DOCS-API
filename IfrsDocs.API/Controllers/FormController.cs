@@ -50,7 +50,7 @@ namespace IfrsDocs.API.Controllers
             try
             {
                 List<Form> results = _formService.GetFormsByUser(userId);
-                List<FormDto> resultMap = _mapper.Map<List<FormDto>>(results);
+                List<FormByUserDto> resultMap = _mapper.Map<List<FormByUserDto>>(results);
 
                 if (resultMap.Count == 0)
                 {
