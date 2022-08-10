@@ -19,7 +19,7 @@ namespace IfrsDocs.Services
             return this._repository.GetUserByLogin(login);
         }
 
-        public bool ValidateUser(string userName, string password)
+        public User ValidateUser(string userName, string password)
         {
             return this._repository.ValidateUser(userName, password);
         }

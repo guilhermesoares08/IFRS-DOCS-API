@@ -23,16 +23,21 @@ namespace IfrsDocs.Repository
             return query.FirstOrDefault();
         }
 
-        public bool ValidateUser(string userName, string password)
+        public User ValidateUser(string userName, string password)
         {
             IQueryable<User> query = _ifrsDocsContext.User;
             query = query.AsNoTracking().Include(q => q.Role);
             foreach (var item in query)
             {
-                return (item.Description.ToLower().Equals(userName.ToLower()) 
-                    && item.Password.Equals(GenerateMd5(password)));                
+                if (item.Description.ToLower().Equals(userName.ToLower()) 
+                    && GenerateMd5(item.Password).Equals(password))
+                {
+                    User objRet = item.Clone();
+                    objRet.Password = GenerateMd5(objRet.Password);
+                    return objRet;
+                }              
             }
-            return false;
+            return null;
         }
 
         public User GetUserByLogin(string login)

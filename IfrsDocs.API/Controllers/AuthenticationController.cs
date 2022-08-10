@@ -29,10 +29,14 @@ namespace IfrsDocs.API.Controllers
         {
             try
             {
-                bool isValidUser = _service.ValidateUser(userLogin.Login, userLogin.Password);
-                if (isValidUser)
+                User usr = _service.ValidateUser(userLogin.Login, userLogin.Password);
+                var retUser = _mapper.Map<UserLoginDto>(usr);
+                if (retUser != null)
                 {
-                    return Ok();
+                    return Ok(new
+                    {
+                        user = retUser
+                    });
                 }
                 return Unauthorized();
             }
