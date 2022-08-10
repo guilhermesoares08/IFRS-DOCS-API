@@ -26,7 +26,10 @@ namespace IfrsDocs.API
             services.AddIfrsDocsDbContext(Configuration.GetConnectionString("DbConnectionString"));
             services.AddServices();
             services.AddRepositories();
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(
+                x => x.SerializerSettings.ReferenceLoopHandling
+                = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddCors();
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>
