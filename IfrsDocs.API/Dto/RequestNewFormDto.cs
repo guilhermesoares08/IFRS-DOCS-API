@@ -12,8 +12,6 @@ namespace IfrsDocs.API.Dto
             ReceiveDocumentType = ReceiveDocumentType.ByEmail;
             DocumentType = DocumentType.Historico;
         }
-        [Required(ErrorMessage = "O Campo {0} é Obrigatório")]
-        public int Id { get; set; }       
         public int? UserId { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }

@@ -1,6 +1,7 @@
 ﻿
 using IfrsDocs.Domain;
 using IfrsDocs.Domain.Entities.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace IfrsDocs.Services
@@ -50,5 +51,20 @@ namespace IfrsDocs.Services
             return _repository.GetFormById(id);
         }
 
+        public bool DeleteForm(int id)
+        {
+            try
+            {
+                var form = _repository.GetFormById(id);
+                if (form == null) throw new System.Exception($"Form {id} para delete não encontrado");
+
+                _repository.Delete<Form>(form);
+                return _repository.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -12,5 +12,7 @@ namespace IfrsDocs.Domain
         public List<Form> GetPendingForms(int userId);
 
         public Form GetFormById(int id);
+
+        public bool DeleteForm(int id);
     }
 }

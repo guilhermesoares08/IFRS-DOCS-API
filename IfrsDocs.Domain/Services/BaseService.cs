@@ -43,6 +43,11 @@ namespace IfrsDocs.Domain
             _repository.Update<TEntity>(entity);
         }
 
+        public bool SaveChanges()
+        {
+            return _repository.SaveChanges();
+        }
+
         //public TEntity GetById(IKey id)
         //{
         //    _repository.GetById<TEntity>()

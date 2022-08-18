@@ -50,17 +50,49 @@ namespace IfrsDocs.API.Controllers
             try
             {
                 List<Form> results = _formService.GetFormsByUser(userId);
-                List<FormByUserDto> resultMap = _mapper.Map<List<FormByUserDto>>(results);
 
-                if (resultMap.Count == 0)
+                if (results == null)
+                {
+                    return NotFound($"Formulários por usuário {userId} não encontrados.");
+                }
+
+                if (results.Count == 0)
                 {
                     return NoContent();
                 }
+
+                List<FormByUserDto> resultMap = _mapper.Map<List<FormByUserDto>>(results);
+                
                 return Ok(resultMap);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar formulário {ex.Message}");
+            }
+        }
+
+        [HttpGet("{Id}")]
+        [AllowAnonymous]
+        public IActionResult GetById(int id)
+        {
+            try
+            {
+                Form result = _formService.GetFormById(id);
+
+                if (result == null)
+                {
+                    return NotFound($"Formulário de id {id} não encontrado");
+                }
+
+                FormByUserDto resultMap = _mapper.Map<FormByUserDto>(result);
+
+                return Ok(resultMap);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar formulário {ex.Message}");
             }
         }
 
@@ -91,7 +123,7 @@ namespace IfrsDocs.API.Controllers
                 _formService.Add(formResult);
                 if (await _formService.SaveChangesAsync())
                 {
-                    return Created($"/api/form/{model.Id}", _mapper.Map<RequestNewFormDto>(model));
+                    return Created($"/api/form/{formResult.Id}", _mapper.Map<RequestNewFormDto>(model));
                 }
             }
             catch (Exception ex)
@@ -118,7 +150,7 @@ namespace IfrsDocs.API.Controllers
 
                 if (await _formService.SaveChangesAsync())
                 {
-                    return Created($"/api/form/{model.Id}", _mapper.Map<Form>(form));
+                    return Created($"/api/form/{form.Id}", _mapper.Map<Form>(form));
                 }
             }
             catch (Exception ex)
@@ -127,6 +159,28 @@ namespace IfrsDocs.API.Controllers
             }
 
             return BadRequest();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                if (_formService.DeleteForm(id))
+                {
+                    return Ok("Deletado");
+                }
+                else
+                {
+                    return BadRequest("Formulário não encontrado");
+                }
+            }
+            catch(Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar deletar formulário {ex.Message}");
+            }
+            
         }
     }
 }

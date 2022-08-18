@@ -49,6 +49,12 @@ namespace IfrsDocs.Repository
             return await _ifrsDocsContext.Set<TEntity>().ToListAsync();
         }
 
+        public bool SaveChanges()
+        {
+            // retorno maior que 0 adicionou no bd
+            return (_ifrsDocsContext.SaveChanges()) > 0;
+        }
+
         //public TEntity GetById<TEntity>(params Expression<Func<TEntity, bool>>[] keys) where TEntity : class
         //{
         //    if (keys == null)

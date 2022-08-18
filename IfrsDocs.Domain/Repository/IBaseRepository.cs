@@ -19,6 +19,8 @@ namespace IfrsDocs.Domain
 
         Task<List<TEntity>> GetAllAsync();
 
+        bool SaveChanges();
+
         //TEntity GetById<TEntity>(params Expression<Func<TEntity, bool>>[] keys) where TEntity : class;
     }
 }

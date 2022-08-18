@@ -29,6 +29,7 @@ namespace IfrsDocs.Repository.Configuration
             builder.Property(p => p.UpdateBy).HasColumnName("UpdateBy");
 
             //builder.HasOne(f => f.Course).WithOne().HasForeignKey<Course>(c => c.Id);
+            //Many().WithOne().OnDelete(DeleteBehavior.Cascade)
         }
 
         
