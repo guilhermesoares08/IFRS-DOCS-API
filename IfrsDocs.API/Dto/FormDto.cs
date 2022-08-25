@@ -26,5 +26,6 @@ namespace IfrsDocs.API.Dto
         public string UpdateBy { get; set; }
         public CourseDto Course { get; set; }
         public UserDto User { get; set; }
+        public string OptionsString { get; set; }
     }
 }

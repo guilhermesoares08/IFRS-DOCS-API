@@ -1,5 +1,6 @@
 ﻿using IfrsDocs.Domain.Entities.Enums;
 using IfrsDocs.Domain.Extensions;
+using IfrsDocs.Domain.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,6 +14,7 @@ namespace IfrsDocs.Domain
             CreateDate = DateTime.Now;
             DocumentType = DocumentType.Historico;
             Status = FormStatus.Pendente;
+            OptionsString = FormatterHelper.FormatDocumentOptionInline(FormDocumentOptions);
         }
         public int Id { get; set; }
         public int? UserId { get; set; }
@@ -30,5 +32,8 @@ namespace IfrsDocs.Domain
         public Course Course { get; set; }        
         public User User { get; set; }
         public List<FormDocumentOption> FormDocumentOptions { get; set; }
+        [NotMapped]
+        public string OptionsString { get; set; }
+        
     }
 }

@@ -144,7 +144,7 @@ namespace IfrsDocs.API.Controllers
             {
                 var form = _formService.GetFormById(id);
                 if (form == null) { return NotFound(); };
-                model.UpdateDate = DateTime.Now;                
+                model.UpdateDate = DateTime.Now;
                 _mapper.Map(model, form);
                 _formService.Update(form);
 
