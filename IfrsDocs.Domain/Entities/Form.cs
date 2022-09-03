@@ -14,7 +14,6 @@ namespace IfrsDocs.Domain
             CreateDate = DateTime.Now;
             DocumentType = DocumentType.Historico;
             Status = FormStatus.Pendente;
-            OptionsString = FormatterHelper.FormatDocumentOptionInline(FormDocumentOptions);
         }
         public int Id { get; set; }
         public int? UserId { get; set; }
@@ -29,11 +28,18 @@ namespace IfrsDocs.Domain
         public DateTime? UpdateDate { get; set; }
         public string CreateBy { get; set; }
         public string UpdateBy { get; set; }
-        public Course Course { get; set; }        
+        public Course Course { get; set; }
         public User User { get; set; }
         public List<FormDocumentOption> FormDocumentOptions { get; set; }
         [NotMapped]
-        public string OptionsString { get; set; }
-        
+        public string OptionsString
+        {
+            get
+            {
+                return FormatterHelper.FormatDocumentOptionInline(this.FormDocumentOptions);
+            }
+            set { }
+        }
+
     }
 }
