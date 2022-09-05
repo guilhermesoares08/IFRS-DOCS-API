@@ -1,6 +1,8 @@
 ﻿using IfrsDocs.Domain;
+using IfrsDocs.Domain.Entities.Pagination;
 using IfrsDocs.Repository.Extensions;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,15 +29,26 @@ namespace IfrsDocs.Repository
             return query.ToList();
         }
 
-        public List<Form> GetFormsByUser(int userId)
+        public PageList<Form> GetForms(PageParams pageParams)
+        {
+            IQueryable<Form> query = _ifrsDocsContext.Form;
+            query = query
+                .ApplyFormIncludes()
+                .AsNoTracking();
+                //.Where(f => f.UserId.Value.ToString() == pageParams.Term);
+
+            return PageList<Form>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
+        }
+
+        public PageList<Form> GetFormsByUser(PageParams pageParams)
         {
             IQueryable<Form> query = _ifrsDocsContext.Form;
             query = query
                 .ApplyFormIncludes()
                 .AsNoTracking()
-                .Where(f => f.UserId == userId);
+                .Where(f => f.UserId.Value.ToString() == pageParams.Term);
 
-            return query.ToList();
+            return PageList<Form>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
         }
 
         public List<Form> GetPendingForms()

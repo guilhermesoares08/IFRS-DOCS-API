@@ -8,6 +8,7 @@ namespace IfrsDocs.API.Dto
     {
         public FormDto()
         {
+            CreateDate = DateTime.Now;
             Status = FormStatus.Pendente.GetDescription();
             DocumentType = Domain.Entities.Enums.DocumentType.Historico.GetDescription();
         }

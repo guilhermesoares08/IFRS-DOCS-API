@@ -1,6 +1,7 @@
 ﻿
 using IfrsDocs.Domain;
 using IfrsDocs.Domain.Entities.Enums;
+using IfrsDocs.Domain.Entities.Pagination;
 using System;
 using System.Collections.Generic;
 
@@ -19,9 +20,9 @@ namespace IfrsDocs.Services
             return _repository.GetAllForms();
         }
 
-        public List<Form> GetFormsByUser(int userId)
+        public PageList<Form> GetFormsByUser(PageParams pageParams)
         {
-            return _repository.GetFormsByUser(userId);
+            return _repository.GetFormsByUser(pageParams);
         }
 
         public List<Form> GetPendingFormsByUser(int userId)
@@ -65,6 +66,11 @@ namespace IfrsDocs.Services
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public PageList<Form> GetForms(PageParams pageParams)
+        {
+            return _repository.GetForms(pageParams);
         }
     }
 }

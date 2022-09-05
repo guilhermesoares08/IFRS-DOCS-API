@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using IfrsDocs.API.Dto;
+using IfrsDocs.API.Extensions;
 using IfrsDocs.Domain;
+using IfrsDocs.Domain.Entities.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +33,7 @@ namespace IfrsDocs.API.Controllers
             {
                 List<Form> results = _formService.GetAllForms();
                 List<FormDto> resultMap = _mapper.Map<List<FormDto>>(results);
-                if(resultMap.Count == 0)
+                if (resultMap.Count == 0)
                 {
                     return NoContent();
                 }
@@ -43,17 +45,17 @@ namespace IfrsDocs.API.Controllers
             }
         }
 
-        [HttpGet("getByUser/{userId}")]
+        [HttpPost("getByUser")]
         [AllowAnonymous]
-        public IActionResult Get(int userId)
+        public IActionResult Get(PageParams pageParams)
         {
             try
             {
-                List<Form> results = _formService.GetFormsByUser(userId);
+                var results = _formService.GetFormsByUser(pageParams);
 
                 if (results == null)
                 {
-                    return NotFound($"Formulários por usuário {userId} não encontrados.");
+                    return NotFound($"Formulários por usuário {pageParams.Term} não encontrados.");
                 }
 
                 if (results.Count == 0)
@@ -61,8 +63,14 @@ namespace IfrsDocs.API.Controllers
                     return NoContent();
                 }
 
-                List<FormByUserDto> resultMap = _mapper.Map<List<FormByUserDto>>(results);
-                
+                var resultMap = _mapper.Map<PageList<FormByUserDto>>(results);
+
+                resultMap.PageSize = results.PageSize;
+                resultMap.TotalPage = results.TotalPage;
+                resultMap.CurrentPage = results.CurrentPage;
+                resultMap.TotalCount = results.TotalCount;
+
+
                 return Ok(resultMap);
             }
             catch (Exception ex)
@@ -181,6 +189,43 @@ namespace IfrsDocs.API.Controllers
                     $"Erro ao tentar deletar formulário {ex.Message}");
             }
             
+        }
+
+        [HttpPost("getForms")]
+        [AllowAnonymous]
+        public IActionResult GetForms(PageParams pageParams)
+        {
+            try
+            {
+                var results = _formService.GetForms(pageParams);
+
+                if (results == null)
+                {
+                    return NotFound($"Formulários por usuário {pageParams.Term} não encontrados.");
+                }
+
+                if (results.Count == 0)
+                {
+                    return NoContent();
+                }
+
+                var resultMap = _mapper.Map<PageList<FormDto>>(results);
+
+                resultMap.PageSize = results.PageSize;
+                resultMap.TotalPage = results.TotalPage;
+                resultMap.CurrentPage = results.CurrentPage;
+                resultMap.TotalCount = results.TotalCount;
+
+                Response.AddPagination(resultMap.CurrentPage,
+                    resultMap.PageSize, resultMap.TotalCount, resultMap.TotalPage);
+
+                return Ok(resultMap);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar formulário {ex.Message}");
+            }
         }
     }
 }

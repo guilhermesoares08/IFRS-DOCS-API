@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using IfrsDocs.Domain.Entities.Pagination;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IfrsDocs.Domain
@@ -7,12 +8,14 @@ namespace IfrsDocs.Domain
     {
         public List<Form> GetAllForms();
 
-        public List<Form> GetFormsByUser(int userId);
+        public PageList<Form> GetFormsByUser(PageParams pageParams);
 
         public List<Form> GetPendingForms(int userId);
 
         public Form GetFormById(int id);
 
         public bool DeleteForm(int id);
+
+        PageList<Form> GetForms(PageParams pageParams);
     }
 }
