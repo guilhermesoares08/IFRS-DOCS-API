@@ -37,7 +37,7 @@ namespace IfrsDocs.Repository
                 .AsNoTracking();
                 //.Where(f => f.UserId.Value.ToString() == pageParams.Term);
 
-            return PageList<Form>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
+            return PageList<Form>.Create(query, pageParams.PageNumber, pageParams.pageSize);
         }
 
         public PageList<Form> GetFormsByUser(PageParams pageParams)
@@ -48,7 +48,7 @@ namespace IfrsDocs.Repository
                 .AsNoTracking()
                 .Where(f => f.UserId.Value.ToString() == pageParams.Term);
 
-            return PageList<Form>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
+            return PageList<Form>.Create(query, pageParams.PageNumber, pageParams.pageSize);
         }
 
         public List<Form> GetPendingForms()

@@ -66,7 +66,7 @@ namespace IfrsDocs.API.Controllers
                 var resultMap = _mapper.Map<PageList<FormByUserDto>>(results);
 
                 resultMap.PageSize = results.PageSize;
-                resultMap.TotalPage = results.TotalPage;
+                resultMap.TotalPages = results.TotalPages;
                 resultMap.CurrentPage = results.CurrentPage;
                 resultMap.TotalCount = results.TotalCount;
 
@@ -127,7 +127,7 @@ namespace IfrsDocs.API.Controllers
             try
             {
                 var formResult = _mapper.Map<Form>(model);
-                
+
                 _formService.Add(formResult);
                 if (await _formService.SaveChangesAsync())
                 {
@@ -183,17 +183,17 @@ namespace IfrsDocs.API.Controllers
                     return BadRequest("Formulário não encontrado");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar deletar formulário {ex.Message}");
             }
-            
+
         }
 
-        [HttpPost("getForms")]
+        [HttpGet("getForms")]
         [AllowAnonymous]
-        public IActionResult GetForms(PageParams pageParams)
+        public IActionResult GetForms([FromBody] PageParams pageParams)
         {
             try
             {
@@ -201,7 +201,7 @@ namespace IfrsDocs.API.Controllers
 
                 if (results == null)
                 {
-                    return NotFound($"Formulários por usuário {pageParams.Term} não encontrados.");
+                    return NotFound($"Formulários por termo {pageParams.Term} não encontrados.");
                 }
 
                 if (results.Count == 0)
@@ -212,12 +212,14 @@ namespace IfrsDocs.API.Controllers
                 var resultMap = _mapper.Map<PageList<FormDto>>(results);
 
                 resultMap.PageSize = results.PageSize;
-                resultMap.TotalPage = results.TotalPage;
+                resultMap.TotalPages = results.TotalPages;
                 resultMap.CurrentPage = results.CurrentPage;
                 resultMap.TotalCount = results.TotalCount;
 
-                Response.AddPagination(resultMap.CurrentPage,
-                    resultMap.PageSize, resultMap.TotalCount, resultMap.TotalPage);
+                Response.AddPagination
+                    (resultMap.CurrentPage,
+                    resultMap.PageSize, resultMap.TotalCount,
+                    resultMap.TotalPages);
 
                 return Ok(resultMap);
             }
