@@ -17,12 +17,15 @@ namespace IfrsDocs.Repository
 
         public PageList<Form> GetForms(PageParams pageParams)
         {
-            IQueryable<Form> query = _ifrsDocsContext.Form;
-            query = query
-                .ApplyFormIncludes()
-                .AsNoTracking();
-                //.Where(f => f.UserId.Value.ToString() == pageParams.Term);
-
+            IQueryable<Form> query = _ifrsDocsContext.Form            
+                                    .ApplyFormIncludes();
+                
+            if (!string.IsNullOrEmpty(pageParams.Term))
+            {
+                query = query
+                    .AsNoTracking()
+                    .Where(f => f.Name.ToLower().Contains(pageParams.Term.ToLower()));
+            }
             return PageList<Form>.Create(query, pageParams.PageNumber, pageParams.pageSize);
         }
 
