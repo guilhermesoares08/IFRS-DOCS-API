@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IfrsDocs.API.Controllers
@@ -23,61 +22,6 @@ namespace IfrsDocs.API.Controllers
         {
             _mapper = mapper;
             _formService = formService;
-        }
-
-        [HttpGet("getAll")]
-        [AllowAnonymous]
-        public IActionResult GetAll()
-        {
-            try
-            {
-                List<Form> results = _formService.GetAllForms();
-                List<FormDto> resultMap = _mapper.Map<List<FormDto>>(results);
-                if (resultMap.Count == 0)
-                {
-                    return NoContent();
-                }
-                return Ok(resultMap);
-            }
-            catch (System.Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou {ex.Message}");
-            }
-        }
-
-        [HttpPost("getByUser")]
-        [AllowAnonymous]
-        public IActionResult Get(PageParams pageParams)
-        {
-            try
-            {
-                var results = _formService.GetFormsByUser(pageParams);
-
-                if (results == null)
-                {
-                    return NotFound($"Formulários por usuário {pageParams.Term} não encontrados.");
-                }
-
-                if (results.Count == 0)
-                {
-                    return NoContent();
-                }
-
-                var resultMap = _mapper.Map<PageList<FormByUserDto>>(results);
-
-                resultMap.PageSize = results.PageSize;
-                resultMap.TotalPages = results.TotalPages;
-                resultMap.CurrentPage = results.CurrentPage;
-                resultMap.TotalCount = results.TotalCount;
-
-
-                return Ok(resultMap);
-            }
-            catch (Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar recuperar formulário {ex.Message}");
-            }
         }
 
         [HttpGet("{Id}")]
@@ -102,23 +46,7 @@ namespace IfrsDocs.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar recuperar formulário {ex.Message}");
             }
-        }
-
-        [HttpGet("getPendingForms/{userId}")]
-        [AllowAnonymous]
-        public IActionResult GetPendingForms(int userId)
-        {
-            try
-            {
-                List<Form> results = _formService.GetPendingForms(userId);
-                List<FormByUserDto> resultMap = _mapper.Map<List<FormByUserDto>>(results);
-                return Ok(resultMap);
-            }
-            catch (System.Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou {ex.Message}");
-            }
-        }
+        }           
 
         [HttpPost]
         [AllowAnonymous]
@@ -191,9 +119,9 @@ namespace IfrsDocs.API.Controllers
 
         }
 
-        [HttpGet("getForms")]
+        [HttpGet]
         [AllowAnonymous]
-        public IActionResult GetForms([FromBody] PageParams pageParams)
+        public IActionResult Get([FromQuery] PageParams pageParams)
         {
             try
             {

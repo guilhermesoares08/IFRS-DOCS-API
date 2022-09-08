@@ -15,38 +15,6 @@ namespace IfrsDocs.Services
             _userRepository = userRepository;
         }
 
-        public List<Form> GetAllForms()
-        {
-            return _repository.GetAllForms();
-        }
-
-        public PageList<Form> GetFormsByUser(PageParams pageParams)
-        {
-            return _repository.GetFormsByUser(pageParams);
-        }
-
-        public List<Form> GetPendingFormsByUser(int userId)
-        {
-            return _repository.GetPendingFormsByUser(userId);
-        }
-
-        public List<Form> GetPendingForms(int userId)
-        {
-            var user = _userRepository.GetUserById(userId);
-
-            if(user == null || user.Role == null)
-            {
-                return null;
-            }
-
-            if(user.Role.Id == (int) RoleType.Admin)
-            {
-                return _repository.GetPendingForms();
-            }
-
-            return GetPendingFormsByUser(userId);
-        }
-
         public Form GetFormById(int id)
         {
             return _repository.GetFormById(id);
