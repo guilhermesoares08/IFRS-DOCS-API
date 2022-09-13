@@ -1,6 +1,8 @@
 ﻿using IfrsDocs.Domain.Entities.Enums;
 using System;
 using IfrsDocs.Domain.Extensions;
+using IfrsDocs.Domain.Dto;
+using IfrsDocs.Domain;
 
 namespace IfrsDocs.API.Dto
 {

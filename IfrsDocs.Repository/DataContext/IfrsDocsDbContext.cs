@@ -29,6 +29,8 @@ namespace IfrsDocs.Repository
             modelBuilder.ApplyConfiguration(new FormCanceledConfiguration());
             modelBuilder.ApplyConfiguration(new FormDocumentOptionConfiguration());
             modelBuilder.ApplyConfiguration(new FormConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }      
     }        
 }

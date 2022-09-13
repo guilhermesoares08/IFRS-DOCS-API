@@ -5,7 +5,7 @@ namespace IfrsDocs.Domain
     public class User
     {
         public int Id { get; set; }
-        public string Description { get; set; }
+        public string Login { get; set; }
         public string Email { get; set; }
         public string CPF { get; set; }
         public string Password { get; set; }
@@ -18,7 +18,7 @@ namespace IfrsDocs.Domain
         {
             User obj = new User();
             obj.Id = this.Id;
-            obj.Description = this.Description;
+            obj.Login = this.Login;
             obj.Email = this.Email;
             obj.Password = this.Password;
             obj.CPF = this.CPF;

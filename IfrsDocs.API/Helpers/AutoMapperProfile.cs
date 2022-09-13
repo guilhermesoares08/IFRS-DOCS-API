@@ -27,8 +27,8 @@ namespace IfrsDocs.API.Helpers
             CreateMap<Course, CourseDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
             //CreateMap<Form, RequestNewFormDto>().ReverseMap();
-            CreateMap<User, UserLoginDto>()
-                .ForMember(dest => dest.Login, opt => opt.MapFrom(src => src.Description))
+            CreateMap<User, UserDto>()
+                .ForMember(dest => dest.Login, opt => opt.MapFrom(src => src.Login))
                 .ReverseMap();
 
             CreateMap<DocumentOption, DocumentOptionDto>().ReverseMap();

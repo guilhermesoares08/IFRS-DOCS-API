@@ -19,7 +19,7 @@ namespace IfrsDocs.Repository.Configuration
 
             builder.ToTable("User");
             builder.Property(p => p.Id).HasColumnName("Id").UseIdentityColumn().ValueGeneratedOnAdd().IsRequired();
-            builder.Property(p => p.Description).HasColumnName("Description");
+            builder.Property(p => p.Login).HasColumnName("Description");
             builder.Property(p => p.Email).HasColumnName("Email");
             builder.Property(p => p.CPF).HasColumnName("CPF");
             builder.Property(p => p.Password).HasColumnName("Password");

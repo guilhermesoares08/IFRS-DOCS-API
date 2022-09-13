@@ -29,8 +29,9 @@ namespace IfrsDocs.Repository
             query = query.AsNoTracking().Include(q => q.Role);
             foreach (var item in query)
             {
-                if (item.Description.ToLower().Equals(userName.ToLower()) 
-                    && GenerateMd5(item.Password).Equals(password))
+                if (item.Login.ToLower().Equals(userName.ToLower())
+                    //&& GenerateMd5(item.Password).Equals(password))
+                    && item.Password.Equals(password))
                 {
                     User objRet = item.Clone();
                     objRet.Password = GenerateMd5(objRet.Password);
@@ -43,7 +44,7 @@ namespace IfrsDocs.Repository
         public User GetUserByLogin(string login)
         {
             IQueryable<User> query = _ifrsDocsContext.User;
-            query = query.AsNoTracking().Where(c => c.Description.ToLower().Equals(login.ToLower()));
+            query = query.AsNoTracking().Where(c => c.Login.ToLower().Equals(login.ToLower()));
             query = query.Include(q => q.Role);
             if (query != null && query.First() != null)
             {

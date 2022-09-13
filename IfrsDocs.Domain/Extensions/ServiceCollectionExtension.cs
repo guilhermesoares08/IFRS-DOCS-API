@@ -1,4 +1,6 @@
-﻿using IfrsDocs.Services;
+﻿using IfrsDocs.Domain.Interfaces;
+using IfrsDocs.Domain.Services;
+using IfrsDocs.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IfrsDocs.Domain
@@ -15,6 +17,7 @@ namespace IfrsDocs.Domain
             services.AddScoped<IFormDocumentOptionService, FormDocumentOptionService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITokenService, TokenService>();
             return services;
         }
     }

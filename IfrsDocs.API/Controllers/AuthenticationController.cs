@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using IfrsDocs.API.Dto;
 using IfrsDocs.Domain;
+using IfrsDocs.Domain.Dto;
+using IfrsDocs.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +18,15 @@ namespace IfrsDocs.API.Controllers
     {
         private readonly IUserService _service;
         private readonly IMapper _mapper;
+        private readonly ITokenService _tokenService;
 
-        public AuthenticationController(IUserService service, IMapper mapper)
+        public AuthenticationController(IUserService service,
+            IMapper mapper,
+            ITokenService tokenService)
         {
             _service = service;
             _mapper = mapper;
+            _tokenService = tokenService;
         }
 
         [HttpPost("Login")]
@@ -30,17 +36,20 @@ namespace IfrsDocs.API.Controllers
             try
             {
                 User usr = _service.ValidateUser(userLogin.Login, userLogin.Password);
-                var retUser = _mapper.Map<UserLoginDto>(usr);
+                if(usr == null) return Unauthorized();
+
+                var retUser = _mapper.Map<UserDto>(usr);
                 if (retUser != null)
                 {
                     return Ok(new
                     {
-                        user = retUser
+                        userName = retUser.Login,
+                        token = _tokenService.CreateToken(retUser)
                     });
                 }
                 return Unauthorized();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database has failed {ex.Message}");
             }

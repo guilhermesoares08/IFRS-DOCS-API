@@ -119,8 +119,9 @@ namespace IfrsDocs.API.Controllers
 
         }
 
+        [Authorize]
         [HttpGet]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public IActionResult Get([FromQuery] PageParams pageParams)
         {
             try
