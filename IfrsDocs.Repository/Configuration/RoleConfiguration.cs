@@ -19,7 +19,7 @@ namespace IfrsDocs.Repository.Configuration
 
             builder.ToTable("Role");
             builder.Property(p => p.Id).HasColumnName("Id").UseIdentityColumn().ValueGeneratedOnAdd().IsRequired();
-            builder.Property(p => p.Description).HasColumnName("Description");
+            builder.Property(p => p.Description).HasColumnName("Description"); 
         }
     }
 }
