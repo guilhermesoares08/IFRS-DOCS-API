@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfrsDocs.API", "IfrsDocs.API\IfrsDocs.API.csproj", "{68E32502-0D74-4C1D-AB7C-89255BCACE9F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfrsDocs.Domain", "IfrsDocs.Domain\IfrsDocs.Domain.csproj", "{FB9B7E09-3B29-4174-8073-2BB58843AB4A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IfrsDocs.Repository", "IfrsDocs.Repository\IfrsDocs.Repository.csproj", "{21A75FBB-482E-49EC-90AE-1EE64823A70C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IFRS-DOCS-API", "IFRS-DOCS-API\IFRS-DOCS-API.csproj", "{F156DF8B-3B21-41D7-A820-9903EB9B2C1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{68E32502-0D74-4C1D-AB7C-89255BCACE9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68E32502-0D74-4C1D-AB7C-89255BCACE9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68E32502-0D74-4C1D-AB7C-89255BCACE9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68E32502-0D74-4C1D-AB7C-89255BCACE9F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB9B7E09-3B29-4174-8073-2BB58843AB4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB9B7E09-3B29-4174-8073-2BB58843AB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB9B7E09-3B29-4174-8073-2BB58843AB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB9B7E09-3B29-4174-8073-2BB58843AB4A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21A75FBB-482E-49EC-90AE-1EE64823A70C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21A75FBB-482E-49EC-90AE-1EE64823A70C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21A75FBB-482E-49EC-90AE-1EE64823A70C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21A75FBB-482E-49EC-90AE-1EE64823A70C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F156DF8B-3B21-41D7-A820-9903EB9B2C1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F156DF8B-3B21-41D7-A820-9903EB9B2C1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F156DF8B-3B21-41D7-A820-9903EB9B2C1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F156DF8B-3B21-41D7-A820-9903EB9B2C1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
