@@ -1,6 +1,6 @@
 ﻿namespace IfrsDocs.Domain
 {
-    public interface IFormCanceledService : IBaseService<FormCanceled>
+    public interface IFormCanceledService : IBaseService<FormCanceled, IFormCanceledRepository>
     {
     }
 }

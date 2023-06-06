@@ -1,6 +1,6 @@
 ﻿namespace IfrsDocs.Domain
 {
-    public interface ICourseService : IBaseService<Course>
+    public interface ICourseService : IBaseService<Course, ICourseRepository>
     {
     }
 }

@@ -24,7 +24,7 @@ namespace IfrsDocs.API.Controllers
             _formService = formService;
         }
 
-        [HttpGet("{Id}")]
+        [HttpGet("{id}")]
         [AllowAnonymous]
         public IActionResult GetById(int id)
         {
@@ -121,7 +121,7 @@ namespace IfrsDocs.API.Controllers
 
         [Authorize]
         [HttpGet]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public IActionResult Get([FromQuery] PageParams pageParams)
         {
             try

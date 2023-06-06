@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 
 namespace IfrsDocs.Domain
 {
-    public interface IBaseService<TEntity> where TEntity : class
+    public interface IBaseService<TEntity, R>
+        where TEntity : class
+        where R : IBaseRepository<TEntity>
     {
         void Add(TEntity entity);
 

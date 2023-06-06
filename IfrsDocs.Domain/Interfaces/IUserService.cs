@@ -1,6 +1,6 @@
 ﻿namespace IfrsDocs.Domain
 {
-    public interface IUserService : IBaseService<User>
+    public interface IUserService : IBaseService<User, IUserRepository>
     {
         User GetUserById(int id);
         User ValidateUser(string userName, string password);

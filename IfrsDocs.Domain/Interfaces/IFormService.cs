@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace IfrsDocs.Domain
 {
-    public interface IFormService : IBaseService<Form>
+    public interface IFormService : IBaseService<Form, IFormRepository>
     {
         public Form GetFormById(int id);
 

@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 
 namespace IfrsDocs.Domain
 {
-    public class BaseService<TEntity, R> : IBaseService<TEntity> where TEntity : class where R : IBaseRepository<TEntity>
+    public class BaseService<TEntity, R> : IBaseService<TEntity, R> 
+        where TEntity : class 
+        where R : IBaseRepository<TEntity>
     {
         protected readonly R _repository;
 
