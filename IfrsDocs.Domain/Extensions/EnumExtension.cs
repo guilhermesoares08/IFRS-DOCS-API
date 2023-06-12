@@ -10,10 +10,14 @@ namespace IfrsDocs.Domain.Extensions
     {
         public static string GetDescription(this System.Enum enumerationValue)
         {
-            Type type = enumerationValue.GetType();
-            MemberInfo member = type.GetMembers().FirstOrDefault(w => w.Name == System.Enum.GetName(type, enumerationValue));
-            var attribute = member?.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault() as DescriptionAttribute;
-            return attribute?.Description != null ? attribute.Description : enumerationValue.ToString();
+            if (enumerationValue != null)
+            {
+                Type type = enumerationValue.GetType();
+                MemberInfo member = type.GetMembers().FirstOrDefault(w => w.Name == System.Enum.GetName(type, enumerationValue));
+                var attribute = member?.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault() as DescriptionAttribute;
+                return attribute?.Description != null ? attribute.Description : enumerationValue.ToString();
+            }
+            return null;
         }
 
         public static T GetEnumValue<T>(this string description)

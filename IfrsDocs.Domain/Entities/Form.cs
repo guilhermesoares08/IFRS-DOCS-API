@@ -12,7 +12,7 @@ namespace IfrsDocs.Domain
         public Form()
         {
             CreateDate = DateTime.Now;
-            DocumentType = DocumentType.Historico;
+            DocumentType = Entities.Enums.DocumentType.Historico;
             Status = FormStatus.Pendente;
         }
         public int Id { get; set; }
@@ -21,8 +21,8 @@ namespace IfrsDocs.Domain
         public string Name { get; set; }
         public string CPF { get; set; }
         public int? CourseId { get; set; }
-        public ReceiveDocumentType ReceiveDocumentType { get; set; }
-        public DocumentType DocumentType { get; set; }
+        public ReceiveDocumentType? ReceiveDocumentType { get; set; }
+        public DocumentType? DocumentType { get; set; }
         public FormStatus? Status { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
