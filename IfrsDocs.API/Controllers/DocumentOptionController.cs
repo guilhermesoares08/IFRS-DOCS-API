@@ -22,7 +22,7 @@ namespace IfrsDocs.API.Controllers
             _documentOptionService = documentOptionService; 
         }
 
-        [HttpGet("getAll")]
+        [HttpGet("GetAll")]
         [AllowAnonymous]
         public IActionResult GetAllDocumentOption()
         {
@@ -38,9 +38,9 @@ namespace IfrsDocs.API.Controllers
             }
         }
 
-        [HttpGet("{documentTypeId}")]
+        [HttpGet("GetByDocumentType/{documentTypeId}")]
         [AllowAnonymous]
-        public IActionResult GetByDocumentType(int documentTypeId)
+        public IActionResult GetDocumentOptionByDocumentType(int documentTypeId)
         {
             try
             {
