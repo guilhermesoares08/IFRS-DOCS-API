@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
 using IfrsDocs.API.Dto;
 using IfrsDocs.Domain;
-using AutoMapper.Extensions.EnumMapping;
+using IfrsDocs.Domain.Dto;
 using IfrsDocs.Domain.Extensions;
-using IfrsDocs.Domain.Entities.Pagination;
-using IfrsDocs.API.Mappings;
 
 namespace IfrsDocs.API.Helpers
 {
-    public class AutoMapperProfile: Profile
+    public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
@@ -28,12 +26,18 @@ namespace IfrsDocs.API.Helpers
             CreateMap<User, UserDto>().ReverseMap();
             //CreateMap<Form, RequestNewFormDto>().ReverseMap();
             CreateMap<User, UserDto>()
-                .ForMember(dest => dest.Login, opt => opt.MapFrom(src => src.Login))
+                .ForMember(
+                            dest => dest.Login,
+                            opt => opt.MapFrom(src => src.Login))
                 .ReverseMap();
 
             CreateMap<DocumentOption, DocumentOptionDto>().ForMember(
-                    dest => dest.DocumentTypeId,
-                    opts => opts.MapFrom(src => (int)src.DocumentType))
+                    dest => dest.DocumentType,
+                    opts => opts.MapFrom(src => new DocumentTypeDto
+                    {
+                        Id = (int)src.DocumentType,
+                        Description = src.DocumentType.GetDescription()
+                    }))
                 .ReverseMap();
         }
     }
