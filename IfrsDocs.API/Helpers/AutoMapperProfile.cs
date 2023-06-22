@@ -31,7 +31,10 @@ namespace IfrsDocs.API.Helpers
                 .ForMember(dest => dest.Login, opt => opt.MapFrom(src => src.Login))
                 .ReverseMap();
 
-            CreateMap<DocumentOption, DocumentOptionDto>().ReverseMap();
+            CreateMap<DocumentOption, DocumentOptionDto>().ForMember(
+                    dest => dest.DocumentTypeId,
+                    opts => opts.MapFrom(src => (int)src.DocumentType))
+                .ReverseMap();
         }
     }
 

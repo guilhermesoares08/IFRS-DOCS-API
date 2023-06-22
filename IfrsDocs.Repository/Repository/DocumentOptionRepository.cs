@@ -1,6 +1,7 @@
 ﻿using IfrsDocs.Domain;
 using Microsoft.EntityFrameworkCore;
-
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IfrsDocs.Repository
 {
@@ -12,5 +13,15 @@ namespace IfrsDocs.Repository
             _ifrsDocsContext = ifrsDocsContext;
             _ifrsDocsContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
+
+        public IList<DocumentOption> GetDocumentOptionByDocumentType(int documentTypeId)
+        {
+            IQueryable<DocumentOption> query = _ifrsDocsContext.DocumentOption;
+            query = query
+                .AsNoTracking()
+                .Where(f => (int)f.DocumentType == documentTypeId);
+
+            return query.ToList();
+        }    
     }
 }
