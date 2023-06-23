@@ -30,5 +30,6 @@ namespace IfrsDocs.API.Dto
         public CourseDto Course { get; set; }
         public UserDto User { get; set; }
         public string OptionsString { get; set; }
+        public string Note { get; set; }
     }
 }
