@@ -13,15 +13,17 @@ namespace IfrsDocs.Domain.Helpers
             {
                 foreach (var fd in options)
                 {
-                    if (fd == options.Last())
+                    if (fd.DocumentOption != null && !string.IsNullOrEmpty(fd.DocumentOption.Description))
                     {
-                        sb.AppendFormat("{0}", fd.DocumentOption.Description);
+                        if (fd == options.Last())
+                        {
+                            sb.AppendFormat("{0}", fd.DocumentOption.Description);
+                        }
+                        else
+                        {
+                            sb.AppendFormat("{0}, ", fd.DocumentOption.Description);
+                        }
                     }
-                    else
-                    {
-                        sb.AppendFormat("{0}, ", fd.DocumentOption.Description);
-                    }
-
                 }
             }
             return sb.ToString();

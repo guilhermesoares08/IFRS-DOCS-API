@@ -1,9 +1,7 @@
-﻿namespace IfrsDocs.API.Dto
+﻿namespace IfrsDocs.Domain.Dto
 {
     public class FormDocumentOptionDto
     {
-        public int FormId { get; set; }
-
         public int DocumentOptionId { get; set; }
     }
 }

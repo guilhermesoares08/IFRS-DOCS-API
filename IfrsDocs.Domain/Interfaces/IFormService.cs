@@ -11,5 +11,6 @@ namespace IfrsDocs.Domain
         public bool DeleteForm(int id);
 
         PageList<Form> GetForms(PageParams pageParams);
+        public Form AddNewForm(RequestNewFormDto form);
     }
 }

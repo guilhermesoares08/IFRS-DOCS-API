@@ -54,22 +54,18 @@ namespace IfrsDocs.API.Controllers
         {
             try
             {
-                var formResult = _mapper.Map<Form>(model);
-
-                _formService.Add(formResult);
-                if (await _formService.SaveChangesAsync())
+                var formResult = _formService.AddNewForm(model);
+                if (formResult != null)
                 {
-                    return Created($"/api/form/{formResult.Id}", _mapper.Map<RequestNewFormDto>(model));
+                    return Created($"/api/form/{formResult.Id}", formResult);
                 }
+                return BadRequest();
             }
             catch (Exception ex)
             {
-                string innerEx = ex.InnerException.Message;
                 string exMessage = ex.Message;
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou{exMessage + "|" + innerEx}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou{exMessage + "|" + ex.InnerException?.Message}");
             }
-
-            return BadRequest();
         }
 
         // PUT api/values/5

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using IfrsDocs.API.Dto;
 using IfrsDocs.Domain;
+using IfrsDocs.Domain.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

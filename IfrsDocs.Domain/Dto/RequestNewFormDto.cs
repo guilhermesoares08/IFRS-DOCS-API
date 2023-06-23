@@ -1,8 +1,9 @@
-﻿using IfrsDocs.Domain.Entities.Enums;
+﻿using IfrsDocs.Domain.Dto;
+using IfrsDocs.Domain.Entities.Enums;
 using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
-namespace IfrsDocs.API.Dto
+namespace IfrsDocs.Domain
 {
     public class RequestNewFormDto
     {
@@ -12,6 +13,7 @@ namespace IfrsDocs.API.Dto
             ReceiveDocumentType = ReceiveDocumentType.ByEmail;
             DocumentType = DocumentType.Historico;
         }
+        public int? Id { get; set; }
         public int? UserId { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
@@ -21,7 +23,7 @@ namespace IfrsDocs.API.Dto
         public DocumentType DocumentType { get; set; }
         public FormStatus? Status { get; set; }
         public string CreateBy { get; set; }
-
         public DateTime? UpdateDate { get; set; }
+        public List<FormDocumentOptionDto> FormDocumentOptionsDto { get; set; }
     }
 }

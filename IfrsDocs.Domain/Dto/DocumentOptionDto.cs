@@ -1,8 +1,4 @@
-﻿using IfrsDocs.Domain.Dto;
-using IfrsDocs.Domain.Entities.Enums;
-using System;
-
-namespace IfrsDocs.API.Dto
+﻿namespace IfrsDocs.Domain.Dto
 {
     public class DocumentOptionDto
     {
