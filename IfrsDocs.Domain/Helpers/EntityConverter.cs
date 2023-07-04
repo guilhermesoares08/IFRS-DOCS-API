@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IfrsDocs.Domain.Entities.Enums;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -33,6 +35,32 @@ namespace IfrsDocs.Domain.Helpers
             }
 
             return target;
+        }
+
+        public static Form ConvertToForm(RequestNewFormDto dto)
+        {
+            Form f = new Form()
+            {
+                UserId = dto.UserId,
+                CourseId = dto.CourseId,
+                ReceiveDocumentType = dto.ReceiveDocumentType,
+                DocumentType = dto.DocumentType,
+                Status = dto.Status,
+                CreateBy = dto.CreateBy,
+                UpdateDate = dto.UpdateDate,
+                Note = dto.Note,
+                FormDocumentOptions = new List<FormDocumentOption>()
+            };
+
+            foreach (var fdo in dto.FormDocumentOptions)
+            {
+                f.FormDocumentOptions.Add(new FormDocumentOption()
+                {
+                    DocumentOptionId = fdo.DocumentOptionId
+                });
+            }
+
+            return f;
         }
     }
 }

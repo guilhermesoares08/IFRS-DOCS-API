@@ -1,4 +1,5 @@
 ﻿
+using AutoMapper;
 using IfrsDocs.Domain;
 using IfrsDocs.Domain.Dto;
 using IfrsDocs.Domain.Entities.Enums;
@@ -53,23 +54,19 @@ namespace IfrsDocs.Services
                 try
                 {
                     if (formDto == null) throw new ArgumentNullException(nameof(Form), "Entidade Form está nulo");
+                    Form newForm = EntityConverter.ConvertToForm(formDto);
 
-                    var newForm = EntityConverter.CopyProperties<Form, RequestNewFormDto>(formDto);
-
+                    //Fill user info
+                    var user = _userRepository.GetUserById(newForm.UserId.Value);
+                    newForm.CreateBy = user.Login;
+                    newForm.CPF = user.CPF;
+                    newForm.Name = user.Login;
+                    newForm.Email = user.Email;
+                    
                     _repository.Add<Form>(newForm);
                     _repository.SaveChanges();
 
-                    if (newForm.Id == 0) throw new Exception("Id de form zerado");
-
-                    int newFormId = newForm.Id;
-
-                    foreach (var fdo in formDto.FormDocumentOptionsDto)
-                    {
-                        var newFdo = EntityConverter.CopyProperties<FormDocumentOption, FormDocumentOptionDto>(fdo);
-                        newFdo.FormId = newFormId;
-                        _formDocumentOptionRepository.Add<FormDocumentOption>(newFdo);
-                    }
-                    _formDocumentOptionRepository.SaveChanges();
+                    if (newForm.Id == 0) throw new Exception("Form não foi criado");
 
                     scope.Complete();
 

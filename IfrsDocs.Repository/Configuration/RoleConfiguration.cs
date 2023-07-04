@@ -18,8 +18,10 @@ namespace IfrsDocs.Repository.Configuration
             }
 
             builder.ToTable("Role");
-            builder.Property(p => p.Id).HasColumnName("Id").UseIdentityColumn().ValueGeneratedOnAdd().IsRequired();
+            builder.Property(p => p.Id).HasColumnName("Id").UseIdentityColumn().ValueGeneratedNever().IsRequired();
             builder.Property(p => p.Description).HasColumnName("Description"); 
+
+            builder.HasMany(e => e.Users).WithOne(r => r.Role).HasForeignKey(r => r.RoleId).IsRequired();
         }
     }
 }

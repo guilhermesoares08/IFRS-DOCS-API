@@ -1,7 +1,9 @@
 ﻿using IfrsDocs.Domain.Dto;
 using IfrsDocs.Domain.Entities.Enums;
+using IfrsDocs.Domain.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace IfrsDocs.Domain
 {
@@ -14,16 +16,15 @@ namespace IfrsDocs.Domain
             DocumentType = DocumentType.Historico;
         }
         public int? Id { get; set; }
+        [Required]
         public int? UserId { get; set; }
-        public string Email { get; set; }
-        public string Name { get; set; }
-        public string CPF { get; set; }
         public int? CourseId { get; set; }
         public ReceiveDocumentType ReceiveDocumentType { get; set; }
         public DocumentType DocumentType { get; set; }
         public FormStatus? Status { get; set; }
         public string CreateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
-        public List<FormDocumentOptionDto> FormDocumentOptionsDto { get; set; }
+        public string Note { get; set; }
+        public List<FormDocumentOptionDto> FormDocumentOptions { get; set; }
     }
 }

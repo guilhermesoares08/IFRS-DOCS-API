@@ -29,6 +29,7 @@ namespace IfrsDocs.Domain
         public string CreateBy { get; set; }
         public string UpdateBy { get; set; }
         public Course Course { get; set; }
+        [NotMapped]
         public User User { get; set; }
         public string Note { get; set; }
         public List<FormDocumentOption> FormDocumentOptions { get; set; }

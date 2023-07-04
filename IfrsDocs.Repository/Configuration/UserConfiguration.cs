@@ -26,6 +26,8 @@ namespace IfrsDocs.Repository.Configuration
             builder.Property(p => p.RoleId).HasColumnName("RoleId");
             builder.Property(p => p.CreateDate).HasColumnName("CreateDate");
             builder.Property(p => p.UpdateDate).HasColumnName("UpdateDate");
+
+            builder.HasOne(p => p.Role).WithOne().HasForeignKey<User>(p => p.RoleId);
         }
     }
 }
