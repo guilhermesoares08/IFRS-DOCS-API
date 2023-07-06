@@ -46,7 +46,6 @@ namespace IfrsDocs.Domain.Helpers
                 ReceiveDocumentType = dto.ReceiveDocumentType,
                 DocumentType = dto.DocumentType,
                 Status = dto.Status,
-                CreateBy = dto.CreateBy,
                 UpdateDate = dto.UpdateDate,
                 Note = dto.Note,
                 FormDocumentOptions = new List<FormDocumentOption>()

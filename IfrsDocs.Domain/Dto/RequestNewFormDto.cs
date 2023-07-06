@@ -22,7 +22,6 @@ namespace IfrsDocs.Domain
         public ReceiveDocumentType ReceiveDocumentType { get; set; }
         public DocumentType DocumentType { get; set; }
         public FormStatus? Status { get; set; }
-        public string CreateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
         public string Note { get; set; }
         public List<FormDocumentOptionDto> FormDocumentOptions { get; set; }

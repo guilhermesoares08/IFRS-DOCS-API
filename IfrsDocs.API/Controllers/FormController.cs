@@ -54,10 +54,12 @@ namespace IfrsDocs.API.Controllers
         {
             try
             {
-                var formResult = _formService.AddNewForm(model);
+               var formResult = _formService.AddNewForm(model);
                 if (formResult != null)
                 {
-                    return Created($"/api/form/{formResult.Id}", formResult);
+                    var formResultDto = _mapper.Map<FormDto>(formResult);
+
+                    return Created($"/api/form/{formResultDto.Id}", formResultDto);
                 }
                 return BadRequest();
             }
