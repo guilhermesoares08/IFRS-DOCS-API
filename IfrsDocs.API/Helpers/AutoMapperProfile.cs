@@ -13,7 +13,7 @@ namespace IfrsDocs.API.Helpers
             CreateMap<Form, FormDto>()
                 .ForMember(
                     dest => dest.Status,
-                    opts => opts.MapFrom(src => src.Status.GetDescription()))
+                    opts => opts.MapFrom(src => (int)src.Status))
                 .ForMember(
                     dest => dest.ReceiveDocumentType,
                     opts => opts.MapFrom(src => src.ReceiveDocumentType.GetDescription()))
@@ -43,7 +43,7 @@ namespace IfrsDocs.API.Helpers
             CreateMap<Form, RequestNewFormDto>()
                 .ForMember(
                     dest => dest.Status,
-                    opts => opts.MapFrom(src => src.Status.GetDescription()))
+                    opts => opts.MapFrom(src => (int)src.Status))
                 .ForMember(
                     dest => dest.ReceiveDocumentType,
                     opts => opts.MapFrom(src => src.ReceiveDocumentType.GetDescription()))
@@ -54,6 +54,8 @@ namespace IfrsDocs.API.Helpers
                     dest => dest.FormDocumentOptions,
                     opts => opts.MapFrom(src => src.FormDocumentOptions))
                 .ReverseMap();
+
+            CreateMap<Role, RoleDto>();
         }
     }
 }

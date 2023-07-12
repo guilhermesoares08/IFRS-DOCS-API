@@ -2,8 +2,10 @@
 using IfrsDocs.API.Dto;
 using IfrsDocs.API.Extensions;
 using IfrsDocs.Domain;
+using IfrsDocs.Domain.Entities.Enums;
 using IfrsDocs.Domain.Entities.Pagination;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,11 +19,13 @@ namespace IfrsDocs.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IFormService _formService;
+        private readonly IUserService _userService;
 
-        public FormController(IMapper mapper, IFormService formService)
+        public FormController(IMapper mapper, IFormService formService, IUserService userService)
         {
             _mapper = mapper;
             _formService = formService;
+            _userService = userService;
         }
 
         [HttpGet("{id}")]
@@ -37,7 +41,7 @@ namespace IfrsDocs.API.Controllers
                     return NotFound($"Formulário de id {id} não encontrado");
                 }
 
-                FormByUserDto resultMap = _mapper.Map<FormByUserDto>(result);
+                FormDto resultMap = _mapper.Map<FormDto>(result);
 
                 return Ok(resultMap);
             }
@@ -46,7 +50,7 @@ namespace IfrsDocs.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar recuperar formulário {ex.Message}");
             }
-        }           
+        }
 
         [HttpPost]
         [AllowAnonymous]
@@ -54,7 +58,7 @@ namespace IfrsDocs.API.Controllers
         {
             try
             {
-               var formResult = _formService.AddNewForm(model);
+                var formResult = _formService.AddNewForm(model);
                 if (formResult != null)
                 {
                     var formResultDto = _mapper.Map<FormDto>(formResult);
@@ -68,31 +72,6 @@ namespace IfrsDocs.API.Controllers
                 string exMessage = ex.Message;
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou{exMessage + "|" + ex.InnerException?.Message}");
             }
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, RequestNewFormDto model)
-        {
-            try
-            {
-                var form = _formService.GetFormById(id);
-                if (form == null) { return NotFound(); };
-                model.UpdateDate = DateTime.Now;
-                _mapper.Map(model, form);
-                _formService.Update(form);
-
-                if (await _formService.SaveChangesAsync())
-                {
-                    return Created($"/api/form/{form.Id}", _mapper.Map<Form>(form));
-                }
-            }
-            catch (Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou{ex.Message}");
-            }
-
-            return BadRequest();
         }
 
         [HttpDelete("{id}")]
@@ -155,6 +134,37 @@ namespace IfrsDocs.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar recuperar formulário {ex.Message}");
             }
+        }
+
+        // PUT api/values/5
+        [HttpPut("UpdateStatus/{id}")]
+        public async Task<IActionResult> Put(int id, UpdateFormStatusDto updateFormStatusDto)
+        {
+            try
+            {
+                var form = _formService.GetFormById(id);
+                if (form == null) return NotFound($"Id de formulário informado '{id}' não encontrado");
+
+                var userUpdate = _userService.GetUserById(updateFormStatusDto.UserId);
+                if (userUpdate == null) return NotFound($"Usuário {updateFormStatusDto.UserId} não encontrado!");
+
+                form.UpdateDate = DateTime.Now;
+                form.Status = (FormStatus)updateFormStatusDto.Status;
+                form.UpdateBy = userUpdate.Login;
+
+                _formService.Update(form);
+
+                if (await _formService.SaveChangesAsync())
+                {
+                    return Ok(_mapper.Map<FormDto>(form));
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou{ex.Message}");
+            }
+
+            return BadRequest();
         }
     }
 }
