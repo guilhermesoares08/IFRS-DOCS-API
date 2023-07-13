@@ -4,7 +4,9 @@ using IfrsDocs.Domain;
 using IfrsDocs.Domain.Dto;
 using IfrsDocs.Domain.Entities.Enums;
 using IfrsDocs.Domain.Entities.Pagination;
+using IfrsDocs.Domain.Extensions;
 using IfrsDocs.Domain.Helpers;
+using IfrsDocs.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Transactions;
@@ -15,10 +17,13 @@ namespace IfrsDocs.Services
     {
         IUserRepository _userRepository;
         IFormDocumentOptionRepository _formDocumentOptionRepository;
-        public FormService(IFormRepository formRepository, IUserRepository userRepository, IFormDocumentOptionRepository formDocumentOptionRepository) : base(formRepository)
+        IMailService _mailService;
+
+        public FormService(IFormRepository formRepository, IUserRepository userRepository, IFormDocumentOptionRepository formDocumentOptionRepository, IMailService mailService) : base(formRepository)
         {
             _userRepository = userRepository;
             _formDocumentOptionRepository = formDocumentOptionRepository;
+            _mailService = mailService;
         }
 
         public Form GetFormById(int id)
@@ -77,6 +82,55 @@ namespace IfrsDocs.Services
                     throw;
                 }
             }
+        }
+
+        public Form UpdateFormStatus(int formId, UpdateFormStatusDto updateFormStatusDto)
+        {
+            try
+            {
+                var form = GetFormById(formId);
+                if (form == null) throw new Exception($"Id de formulário informado '{formId}' não encontrado");
+
+                var userUpdate = _userRepository.GetUserById(updateFormStatusDto.UserId);
+                if (userUpdate == null) throw new Exception($"Usuário {updateFormStatusDto.UserId} não encontrado!");
+
+                string oldStatus = form.Status.GetDescription();
+                form.UpdateDate = DateTime.Now;
+                form.Status = (FormStatus)updateFormStatusDto.Status;
+                form.UpdateBy = userUpdate.Login;
+                
+                _repository.Update<Form>(form);
+
+                if (_repository.SaveChangesAsync().Result && oldStatus != form.Status.GetDescription())
+                {
+                    ProcessMailForm(form, oldStatus);
+                }
+
+                return form;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private bool ProcessMailForm(Form form, string oldStatus)
+        {
+            bool success =  false;
+            if (form == null) throw new ArgumentException("ProcessMailForm - form nulo para processamento de email");
+
+            _mailService.ValidateEmail(form.Email);            
+
+            List<string> to = new List<string>();
+            List<string> bcc = new List<string>();
+
+            to.Add(form.Email);
+
+            _mailService.SendFormChangedStatusMail(to, bcc, form, oldStatus);
+
+            success = true;
+
+            return success;
         }
     }
 }

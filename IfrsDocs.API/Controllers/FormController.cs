@@ -2,10 +2,8 @@
 using IfrsDocs.API.Dto;
 using IfrsDocs.API.Extensions;
 using IfrsDocs.Domain;
-using IfrsDocs.Domain.Entities.Enums;
 using IfrsDocs.Domain.Entities.Pagination;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -142,22 +140,9 @@ namespace IfrsDocs.API.Controllers
         {
             try
             {
-                var form = _formService.GetFormById(id);
-                if (form == null) return NotFound($"Id de formulário informado '{id}' não encontrado");
+                var form = _formService.UpdateFormStatus(id, updateFormStatusDto);
 
-                var userUpdate = _userService.GetUserById(updateFormStatusDto.UserId);
-                if (userUpdate == null) return NotFound($"Usuário {updateFormStatusDto.UserId} não encontrado!");
-
-                form.UpdateDate = DateTime.Now;
-                form.Status = (FormStatus)updateFormStatusDto.Status;
-                form.UpdateBy = userUpdate.Login;
-
-                _formService.Update(form);
-
-                if (await _formService.SaveChangesAsync())
-                {
-                    return Ok(_mapper.Map<FormDto>(form));
-                }
+                return Ok(_mapper.Map<FormDto>(form));
             }
             catch (Exception ex)
             {

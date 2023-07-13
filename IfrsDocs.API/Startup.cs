@@ -1,18 +1,17 @@
 using IfrsDocs.Domain;
+using IfrsDocs.Domain.Entities.Mail;
 using IfrsDocs.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace IfrsDocs.API
 {
@@ -28,6 +27,8 @@ namespace IfrsDocs.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIfrsDocsDbContext(Configuration.GetConnectionString("DbConnectionString"));
+            var mailSettings = Configuration.GetSection("MailSettings").Get<MailSettings>();
+            services.AddSingleton(mailSettings);
             services.AddServices();
             services.AddRepositories();
 

@@ -12,5 +12,6 @@ namespace IfrsDocs.Domain
 
         PageList<Form> GetForms(PageParams pageParams);
         public Form AddNewForm(RequestNewFormDto form);
+        public Form UpdateFormStatus(int formId, UpdateFormStatusDto updateFormStatusDto);
     }
 }

@@ -1,6 +1,8 @@
-﻿using IfrsDocs.Domain.Interfaces;
+﻿using IfrsDocs.Domain.Entities.Mail;
+using IfrsDocs.Domain.Interfaces;
 using IfrsDocs.Domain.Services;
 using IfrsDocs.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IfrsDocs.Domain
@@ -17,7 +19,8 @@ namespace IfrsDocs.Domain
             services.AddScoped<IFormDocumentOptionService, FormDocumentOptionService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ITokenService, TokenService>();            
+            services.AddScoped<IMailService, MailService>();
             return services;
         }
     }
