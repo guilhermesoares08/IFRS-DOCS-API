@@ -10,6 +10,7 @@ namespace IfrsDocs.Domain.Entities.Mail
         public int Port { get; set; }
         public string FromAddress { get; set; }
         public string FromName { get; set; }
+        public bool IsEnabled { get; set; }
         public NetworkCredential NetworkCredential { get; set; }
     }
 }

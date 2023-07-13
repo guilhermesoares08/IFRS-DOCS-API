@@ -55,9 +55,12 @@ namespace IfrsDocs.Domain.Services
             message.IsBodyHtml = true;
             try
             {
-                Console.WriteLine("Enviando email...");
-                client.Send(message);
-                Console.WriteLine("Email enviado!");
+                if (_mailSettings.IsEnabled)
+                {
+                    Console.WriteLine("Enviando email...");
+                    client.Send(message);
+                    Console.WriteLine("Email enviado!");
+                }
             }
             catch (SmtpException ex)
             {
