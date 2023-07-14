@@ -3,6 +3,7 @@ using System;
 using IfrsDocs.Domain.Extensions;
 using IfrsDocs.Domain.Dto;
 using IfrsDocs.Domain;
+using System.Collections.Generic;
 
 namespace IfrsDocs.API.Dto
 {
@@ -26,5 +27,6 @@ namespace IfrsDocs.API.Dto
         public UserDto User { get; set; }
         public string OptionsString { get; set; }
         public string Note { get; set; }
+        public List<FormDocumentOptionDto> FormDocumentOptions { get; set; }
     }
 }

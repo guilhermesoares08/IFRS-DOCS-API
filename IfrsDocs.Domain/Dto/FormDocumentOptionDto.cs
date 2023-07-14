@@ -8,5 +8,7 @@
         }
 
         public int DocumentOptionId { get; set; }
+
+        public string DocumentOptionDescription { get; set; }
     }
 }
