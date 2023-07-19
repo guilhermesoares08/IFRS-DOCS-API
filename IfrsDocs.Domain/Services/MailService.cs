@@ -4,6 +4,7 @@ using IfrsDocs.Domain.Extensions;
 using IfrsDocs.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -19,7 +20,7 @@ namespace IfrsDocs.Domain.Services
             _mailSettings = mailSettings;
         }
 
-        public void SendMail(List<string> to, List<string> bcc, string subject, string body)
+        public void SendMail(List<string> to, List<string> bcc, string subject, string body, List<FileInfo> filesData = null)
         {            
             MailMessage message = new MailMessage();
 
@@ -35,6 +36,17 @@ namespace IfrsDocs.Domain.Services
                     message.Bcc.Add(email);
                 }
             }
+
+            //if(filesData != null && filesData.Any())
+            //{
+            //    foreach (var file in filesData)
+            //    {
+            //        using (var fileStream = new FileStream(file.FullName, FileMode.Open))
+            //        {
+            //            message.Attachments.Add(new Attachment(fileStream, file.Name));
+            //        }
+            //    }
+            //}
 
             SmtpClient client = new SmtpClient
             {
@@ -84,13 +96,13 @@ namespace IfrsDocs.Domain.Services
             }
         }
 
-        public void SendFormChangedStatusMail(List<string> to, List<string> bcc, Form form, string oldStatus)
+        public void SendFormChangedStatusMail(List<string> to, List<string> bcc, Form form, string oldStatus, List<FileInfo> attachments = null)
         {
             string subject = "IFRS Campus Restinga - Sua solicitação trocou de status";
             string htmlBody = $"<h3>IFRS - Solicitação de Documentos Acadêmicos</h3>" +
                       $"<p>Referente à solicitação de <strong>{form.OptionsString}</strong> passou de <strong>{oldStatus}</strong> para <strong>{form.Status.GetDescription()}</strong>.</p></html>";
 
-            SendMail(to, bcc, subject, htmlBody);
+            SendMail(to, bcc, subject, htmlBody, attachments);
         }
     }
 }

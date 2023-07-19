@@ -18,4 +18,8 @@
     <ProjectReference Include="..\IfrsDocs.Repository\IfrsDocs.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Documents\" />
+  </ItemGroup>
+
 </Project>

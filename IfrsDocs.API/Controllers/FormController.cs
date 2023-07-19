@@ -4,9 +4,12 @@ using IfrsDocs.API.Extensions;
 using IfrsDocs.Domain;
 using IfrsDocs.Domain.Entities.Pagination;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace IfrsDocs.API.Controllers
@@ -18,12 +21,15 @@ namespace IfrsDocs.API.Controllers
         private readonly IMapper _mapper;
         private readonly IFormService _formService;
         private readonly IUserService _userService;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public FormController(IMapper mapper, IFormService formService, IUserService userService)
+        public FormController(IMapper mapper, IFormService formService, IUserService userService, IWebHostEnvironment hostEnvironment)
         {
             _mapper = mapper;
             _formService = formService;
             _userService = userService;
+            webHostEnvironment = hostEnvironment;
+
         }
 
         [HttpGet("{id}")]
@@ -140,6 +146,8 @@ namespace IfrsDocs.API.Controllers
         {
             try
             {
+                //IFormFile
+                //var files = Request.Form.Files;
                 var form = _formService.UpdateFormStatus(id, updateFormStatusDto);
 
                 return Ok(_mapper.Map<FormDto>(form));
@@ -150,6 +158,58 @@ namespace IfrsDocs.API.Controllers
             }
 
             return BadRequest();
+        }
+
+        [HttpPut("UpdateStatusAndSendFiles/{id}")]
+        public async Task<IActionResult> UpdateStatusAndSendFiles(int id)
+        {
+            try
+            {
+                var form = await Request.ReadFormAsync();
+                var status = form["status"];
+                var formId = form["formId"];
+                var userId = form["userId"];
+                var files = Request.Form.Files;
+                List<FileInfo> attachments = new List<FileInfo>();
+                if(files != null && files.Count > 0)
+                {
+                    foreach (var file in files)
+                    {
+                        // Criar um FileInfo para cada arquivo e adicioná-lo à lista de anexos
+                        
+
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            // Copiar o conteúdo do arquivo para o MemoryStream
+                            await file.CopyToAsync(memoryStream);
+
+                            // Criar um FileInfo com base no MemoryStream
+                            var fileInfo = new FileInfo(file.FileName);
+
+                            attachments.Add(fileInfo);
+                        }
+                    }
+                }
+
+                var responseForm = _formService.UpdateFormStatus(id, new UpdateFormStatusDto() { Status = int.Parse(status), UserId = int.Parse(userId), Attachments = attachments }); ;
+
+                return Ok(_mapper.Map<FormDto>(responseForm));
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou{ex.Message}");
+            }
+        }
+
+        [NonAction]
+        public void DeleteImage(string imageName)
+        {
+            var imagePath = Path.Combine(webHostEnvironment.ContentRootPath, @"Resources/images", imageName);
+
+            if(System.IO.File.Exists(imagePath)) 
+            {
+                System.IO.File.Delete(imagePath);
+            }
         }
     }
 }

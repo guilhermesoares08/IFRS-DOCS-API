@@ -9,6 +9,7 @@ using IfrsDocs.Domain.Helpers;
 using IfrsDocs.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Transactions;
 
 namespace IfrsDocs.Services
@@ -103,7 +104,7 @@ namespace IfrsDocs.Services
 
                 if (_repository.SaveChangesAsync().Result && oldStatus != form.Status.GetDescription())
                 {
-                    ProcessMailForm(form, oldStatus);
+                    ProcessMailForm(form, oldStatus, updateFormStatusDto.Attachments);
                 }
 
                 return form;
@@ -114,7 +115,7 @@ namespace IfrsDocs.Services
             }
         }
 
-        private bool ProcessMailForm(Form form, string oldStatus)
+        private bool ProcessMailForm(Form form, string oldStatus, List<FileInfo> attachments)
         {
             bool success =  false;
             if (form == null) throw new ArgumentException("ProcessMailForm - form nulo para processamento de email");
@@ -126,7 +127,7 @@ namespace IfrsDocs.Services
 
             to.Add(form.Email);
 
-            _mailService.SendFormChangedStatusMail(to, bcc, form, oldStatus);
+            _mailService.SendFormChangedStatusMail(to, bcc, form, oldStatus, attachments);
 
             success = true;
 
