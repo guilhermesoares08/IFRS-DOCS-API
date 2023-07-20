@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using IfrsDocs.API.Dto;
 using IfrsDocs.API.Extensions;
+using IfrsDocs.API.Helpers;
 using IfrsDocs.Domain;
+using IfrsDocs.Domain.Entities;
 using IfrsDocs.Domain.Entities.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -111,7 +113,7 @@ namespace IfrsDocs.API.Controllers
 
                 if (results == null)
                 {
-                    return NotFound($"Formulários por termo {pageParams.Term} não encontrados.");
+                    return NotFound($"Formulários por termo {pageParams.Name} não encontrados.");
                 }
 
                 if (results.Count == 0)
@@ -142,19 +144,17 @@ namespace IfrsDocs.API.Controllers
 
         // PUT api/values/5
         [HttpPut("UpdateStatus/{id}")]
-        public async Task<IActionResult> Put(int id, UpdateFormStatusDto updateFormStatusDto)
+        public async Task<IActionResult> UpdateStatus(int id, UpdateFormStatusDto updateFormStatusDto)
         {
             try
             {
-                //IFormFile
-                //var files = Request.Form.Files;
                 var form = _formService.UpdateFormStatus(id, updateFormStatusDto);
 
                 return Ok(_mapper.Map<FormDto>(form));
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou{ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"{ex.Message}");
             }
 
             return BadRequest();
@@ -170,34 +170,26 @@ namespace IfrsDocs.API.Controllers
                 var formId = form["formId"];
                 var userId = form["userId"];
                 var files = Request.Form.Files;
-                List<FileInfo> attachments = new List<FileInfo>();
-                if(files != null && files.Count > 0)
+                List<AttachmentData> attachments = new List<AttachmentData>();
+                if (files != null && files.Count > 0)
                 {
                     foreach (var file in files)
                     {
-                        // Criar um FileInfo para cada arquivo e adicioná-lo à lista de anexos
-                        
-
-                        using (var memoryStream = new MemoryStream())
+                        attachments.Add(new AttachmentData
                         {
-                            // Copiar o conteúdo do arquivo para o MemoryStream
-                            await file.CopyToAsync(memoryStream);
-
-                            // Criar um FileInfo com base no MemoryStream
-                            var fileInfo = new FileInfo(file.FileName);
-
-                            attachments.Add(fileInfo);
-                        }
+                            FileName = file.FileName,
+                            ContentStream = file.OpenReadStream()
+                        });
                     }
                 }
 
-                var responseForm = _formService.UpdateFormStatus(id, new UpdateFormStatusDto() { Status = int.Parse(status), UserId = int.Parse(userId), Attachments = attachments }); ;
+                var responseForm = _formService.UpdateFormStatus(id, new UpdateFormStatusDto() { Status = int.Parse(status), UserId = int.Parse(userId), Attachments = attachments });
 
                 return Ok(_mapper.Map<FormDto>(responseForm));
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou{ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"{ex.Message}");
             }
         }
 
@@ -206,7 +198,7 @@ namespace IfrsDocs.API.Controllers
         {
             var imagePath = Path.Combine(webHostEnvironment.ContentRootPath, @"Resources/images", imageName);
 
-            if(System.IO.File.Exists(imagePath)) 
+            if (System.IO.File.Exists(imagePath))
             {
                 System.IO.File.Delete(imagePath);
             }

@@ -20,11 +20,11 @@ namespace IfrsDocs.Repository
             IQueryable<Form> query = _ifrsDocsContext.Form            
                                     .ApplyFormIncludes();
                 
-            if (!string.IsNullOrEmpty(pageParams.Term))
+            if (!string.IsNullOrEmpty(pageParams.Name))
             {
                 query = query
                     .AsNoTracking()
-                    .Where(f => f.Name.ToLower().Contains(pageParams.Term.ToLower()));
+                    .Where(f => f.Name.ToLower().Contains(pageParams.Name.ToLower()));
             }
             return PageList<Form>.Create(query, pageParams.PageNumber, pageParams.pageSize);
         }
